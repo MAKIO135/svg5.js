@@ -18,7 +18,7 @@ const svg5 = {
             stroke="${svg5.strokeColor}"
             stroke-width="${svg5.strokeWeight}"
             stroke-linecap="${svg5.strokeCap}"
-            stroke-linejoin="${svg5.strokeJoin"
+            stroke-linejoin="${svg5.strokeJoin}"
             fill="${svg5.fillColor}"
             ${params}
         />`
