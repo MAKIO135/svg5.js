@@ -3,7 +3,7 @@ A small JS library to create SVGs, inspired by p5.js
 
 ## Example
 ```html
-<script src="path/to/svg5.js"></script>
+<script src="https://raw.git.rest/MAKIO135/svg5.js/master/svg5.js"></script>
 <script>
     createSVG(windowWidth, windowHeight)
     //background('red')
