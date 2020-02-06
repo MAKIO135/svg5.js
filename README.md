@@ -18,7 +18,6 @@ A small JS library to create SVGs, inspired by p5.js
         vertex(width + 10, height + 100)
         endShape(CLOSE)
     }
-
 </script>
 ```
 
