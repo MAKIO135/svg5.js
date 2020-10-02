@@ -145,7 +145,7 @@ const pop = () => {
 
 // Save SVG file
 const save = () => {
-    const svgData = p5SVG.svg.outerHTML
+    const svgData = svg5.svg.outerHTML
     const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
     const svgUrl = URL.createObjectURL(svgBlob)
     const downloadLink = document.createElement('a')
