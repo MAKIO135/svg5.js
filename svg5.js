@@ -4,6 +4,7 @@ const svg5 = {
     strokeWidth: 1,
     strokeCap: 'butt', // butt, square or round
     strokeJoin: 'miter', // miter, round or bevel
+    strokeDashArray: [],
     opacity: 1,
     transform: '',
     path: [],
@@ -19,6 +20,7 @@ const svg5 = {
             stroke-width="${svg5.strokeWeight}"
             stroke-linecap="${svg5.strokeCap}"
             stroke-linejoin="${svg5.strokeJoin}"
+            ${svg5.strokeDashArray.length ? `stroke-strokedasharray="${svg5.strokeDashArray.join(' ')}"` : ''}
             fill="${svg5.fillColor}"
             ${params}
         />`
