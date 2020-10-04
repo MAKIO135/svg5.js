@@ -1,5 +1,5 @@
 # svg5.js
-A small JS library to create SVGs, inspired by p5.js
+A tiny JS library to create static SVGs, based on Processing/p5js syntax.
 
 ## Example
 ```html
