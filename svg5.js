@@ -1,7 +1,7 @@
 const svg5 = {
     fillColor: 'white',
     strokeColor: 'black',
-    strokeWeight: 1,
+    strokeWidth: 1,
     strokeCap: 'butt', // butt, square or round
     strokeJoin: 'miter', // miter, round or bevel
     opacity: 1,
