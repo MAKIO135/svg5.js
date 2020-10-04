@@ -24,7 +24,16 @@ const svg5 = {
             fill="${svg5.fillColor}"
             ${params}
         />`
-    }
+    },
+    parseColor: function(a, b, c, d){
+        if(typeof arguments[0] === 'string') return arguments[0]
+        
+        return arguments.length === 1 ? `rgb(${a}, ${a}, ${a})` : // single grey value from 0 to 255
+            arguments.length === 2 ? `rgba(${a}, ${a}, ${a}, ${(b / 255).toFixed(3)})` : // grey, alpha from 0 to 255
+            arguments.length === 3 ? `rgb(${a}, ${b}, ${c})` : // r,g,b values from 0 to 255
+            arguments.length === 4 ? `rgba(${a}, ${b}, ${c}, ${(d / 255).toFixed(3)})` : // r,g,b,alpha values from 0 to 255
+            'black'
+    },
 }
 
 const CLOSE = true
