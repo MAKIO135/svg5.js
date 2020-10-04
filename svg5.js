@@ -28,6 +28,8 @@ const svg5 = {
 }
 
 const CLOSE = true
+const windowWidth = window.innerWidth
+const windowHeight = window.innerHeight
 let width, height
 
 const createSVG = (w, h, parentSelector = 'body') => {
