@@ -29,14 +29,13 @@ const svg5 = {
 
 const CLOSE = true
 let width, height
-let windowWidth = window.innerWidth
-let windowHeight = window.innerHeight
 
-const createSVG = (w, h) => {
+const createSVG = (w, h, parentSelector = 'body') => {
     width = w
     height = h
-    document.body.innerHTML += `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"></svg>`
-    svg5.svg = document.querySelector('svg')
+    const id = `svg5_${Date.now()}`
+    document.querySelector(parentSelector).innerHTML += `<svg id="${id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"></svg>`
+    svg5.svg = document.querySelector(`#${id}`)
     svg5.svg.addEventListener('contextmenu', e => {
         e.preventDefault()
         save()
