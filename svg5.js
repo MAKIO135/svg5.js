@@ -44,61 +44,26 @@ const createSVG = (w, h) => {
 }
 
 // Styling
-const clear = () => {
-    svg5.svg.innerHTML = ''
-}
-
-const background = (c) => {
-    svg5.svg.innerHTML += `<rect stroke="none" fill="${c}" x="0" y="0" width="${width}" height="${height}" />`
-}
-
-const fill = (c) => {
-    svg5.fillColor = c
-}
-
-const noFill = () => {
-    svg5.fillColor = 'none'
-}
-
-const stroke = (c) => {
-    svg5.strokeColor = c
-}
-
-const strokeWeight = (n) => {
-    svg5.strokeWeight = n
-}
-
-const strokeCap = (type) => {
-    svg5.strokeCap = type
-}
-
-const strokeJoin = (type) => {
-    svg5.strokeJoin = type
-}
-
-const noStroke = () => {
-    svg5.strokeColor = 'none'
-}
+const clear = () => svg5.svg.innerHTML = ''
+const background = c => svg5.svg.innerHTML += `<rect stroke="none" fill="${c}" x="0" y="0" width="${width}" height="${height}" />`
+const opacity = n => svg5.opacity = n
+const fill = (...args) => svg5.fillColor = svg5.parseColor(...args)
+const noFill = () => svg5.fillColor = 'none'
+const stroke = (...args) => svg5.strokeColor = svg5.parseColor(...args)
+const strokeWidth = n => svg5.strokeWidth = n
+const strokeWeight = strokeWidth // alias for strokeWidth
+const strokeCap = type => svg5.strokeCap = type
+const strokeJoin = type => svg5.strokeJoin = type
+const noStroke = () => svg5.strokeColor = 'none'
 
 // Shapes
-const circle = (cx, cy, diameter) => {
-    svg5.addElement('circle', `cx="${cx}" cy="${cy}" r="${diameter/2}"`)
-}
-const ellipse = (cx, cy, w, h) => {
-    svg5.addElement('ellipse', `cx="${cx}" cy="${cy}" rx="${w/2}" ry="${h/2}"`)
-}
-const rect = (x, y, w, h) => {
-    svg5.addElement('rect', `x="${x}" y="${y}" width="${w}" height="${h}"`)
-}
-
-const polyline = (...pts) => {
-    svg5.addElement('polyline', `points="${pts.join(' ')}"`)
-}
+const circle = (cx, cy, diameter) => svg5.addElement('circle', `cx="${cx}" cy="${cy}" r="${diameter/2}"`)
+const ellipse = (cx, cy, w, h) => svg5.addElement('ellipse', `cx="${cx}" cy="${cy}" rx="${w/2}" ry="${h/2}"`)
+const rect = (x, y, w, h) => svg5.addElement('rect', `x="${x}" y="${y}" width="${w}" height="${h}"`)
+const square = (x, y, w) => rect(x, y, w, w)
+const polyline = (...pts) => svg5.addElement('polyline', `points="${pts.join(' ')}"`)
 const line = (x1, y1, x2, y2) => polyline(x1, y1, x2, y2)
-
-const polygon = (...pts) => {
-    svg5.addElement('polygon', `points="${pts.join(' ')}"`)
-}
+const polygon = (...pts) => svg5.addElement('polygon', `points="${pts.join(' ')}"`)
 const triangle = (x1, y1, x2, y2, x3, y3) => polygon(x1, y1, x2, y2, x3, y3)
 const quad = (x1, y1, x2, y2, x3, y3, x4, y4) => polygon(x1, y1, x2, y2, x3, y3, x4, y4)
 const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
@@ -116,29 +81,21 @@ const vertex = (x, y) => svg5.path.push(`${svg5.path.length == 0 ? 'M' : 'L'}${x
 const bezierVertex = (x1, y1, x2, y2, x, y) => svg5.path.push(`C ${x1} ${y1}, ${x2} ${y2}, ${x} ${y}`)
 const cubicVertex = (x2, y2, x, y) => svg5.path.push(`S ${x2} ${y2}, ${x} ${y}`)
 const quadraticVertex = (x1, y1, x, y) => svg5.path.push(`Q ${x1} ${y1}, ${x} ${y}`)
-const endShape = (closed) => {
-    svg5.addElement('path', `d="${svg5.path.join(' ')}${closed ? ' Z' : ''}"`)
-}
+const endShape = closed => svg5.addElement('path', `d="${svg5.path.join(' ')}${closed ? ' Z' : ''}"`)
 
 // Math helpers
 const random = (a, b) => (b || b === 0) ? a + Math.random() * (b - a) : Math.random() * a
-const noise = (x, y, z) => svg5.sn.noise3D(x, y || 0, z || 0)
-const lerp = (a, b, amount) => a + (b - a) * amount
+const noiseSeed = seed => svg5.initSimplexNoise(seed)
+const noise = (x, y, z, w) => svg5.simplex.noise4D(x, y || 0, z || 0, w || 0)
+const lerp = (a, b, t) => a * (1 - t) + b * t
 const map = (n, a, b, c, d) => lerp(c, d, (n - a) / (b - a))
 const constrain = (a, min, max) => a < min ? min : a > max ? max : a 
 
-const translate = (x, y) => {
-    svg5.transform += `translate(${x}, ${y}) `
-}
-const rotate = (angle) => {
-    svg5.transform += `rotate(${angle}) `
-}
-const scale = (x, y) => {
-    svg5.transform += `scale() `
-}
-const push = () => {
-    svg5.transform += `|`
-}
+// Matrix transformations
+const translate = (x, y) => svg5.transform += `translate(${x}, ${y})`
+const rotate = angle => svg5.transform += `rotate(${angle})`
+const scale = (x, y) => svg5.transform += y ? y : x`scale(${x})`
+const push = () => svg5.transform += `|`
 const pop = () => {
     let tmp = svg5.transform.split('|')
     tmp.pop()
