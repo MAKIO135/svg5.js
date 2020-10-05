@@ -66,20 +66,25 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - a CSS color string, ie: `fill("red")`, `fill("#ff0000")`, `fill("rgb(255, 0, 0)")`, `fill("rgba(0, 0, 0, 0.5)")`, `fill("hsl(30, 100%, 50%)")`, …
 
 ### Vertex shapes
-- `beginShape()`
-- `vertex(x, y)`
-- `bezierVertex(x1, y1, x2, y2, x, y)`
-- `cubicVertex(x2, y2, x, y)`
-- `quadraticVertex(x1, y1, x, y)`
-- `endShape([CLOSE])`
+- `beginShape()` [See doc on p5js](https://p5js.org/reference/#/p5/beginShape)
+- `vertex(x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/vertex)
+- `bezierVertex(x1, y1, x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/bezierVertex)
+- `cubicVertex(x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/cubicVertex)
+- `quadraticVertex(x1, y1, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/quadraticVertex)
+- `endShape([CLOSE])` [See doc on p5js](https://p5js.org/reference/#/p5/endShape)
 
 ### Math helpers
-- `random()` random(max) or random(min, max)
-- `noiseSeed(seed)`
-- `noise(x [, y , z , w])` computes a value using simplex noise 1D to 4D.
 - `lerp(a, b, t)` calculates value between `a` and `b` at a specific increment between 0 and 1.
 - `map(n, start1, end1, start2, end2)` re-maps a number from one range to another.
 - `constrain(value, min, max)` constrains a value between a minimum and maximum value.
+- `random()` random(max) or random(min, max).
+- `randomSeed(seed)` sets the seed value for random().
+- `noise1D(x)` computes a value using simplex noise 1D.
+- `noise2D(x, y)` computes a value using simplex noise 2D.
+- `noise3D(x, y, z)` computes a value using simplex noise 3D.
+- `noise4D(x, y, z, w)` computes a value using simplex noise 4D.
+- `noise(x [, y , z , w])` computes a value using simplex noise 1D to 4D, depending on number of arguments.
+- `noiseSeed(seed)` sets the seed value for noise.
 
 ### Matrix transformations
 - `translate(x, y)`
