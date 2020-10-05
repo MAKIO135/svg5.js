@@ -23,7 +23,10 @@ A tiny JS library to generate static SVGs for plotters, lasercutting, embroidery
 
 ## Documentation
 
+Start by creating an SVG element using the `createSVG` function:
 - `createSVG(width, height [, parentCSSSelector])`
+You can specify a CSS selector as third parameter to let the library know where to append the SVG. By default, SVG is appended to the `body` of the page.  
+Then, simply draw your elements like a Processing sketch!
 
 ### Global variables
 - `width`: width of the SVG.
