@@ -3,7 +3,7 @@ A tiny JS library to generate static SVGs for plotters, lasercutting, embroidery
 
 ## Example
 ```html
-<script src="https://ghcdn.rawgit.org/MAKIO135/svg5.js/master/svg5.js"></script>
+<script src="https://ghcdn.rawgit.org/MAKIO135/svg5.js/master/svg5.min.js"></script>
 <script>
     createSVG(windowWidth, windowHeight)
     background('red')
