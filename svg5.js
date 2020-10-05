@@ -106,6 +106,10 @@ const constrain = (a, min, max) => a < min ? min : a > max ? max : a
 const randomSeed = seed => svg5.prng = svg5.initAlea(seed)
 const random = (a, b) => (b || b === 0) ? a + svg5.prng() * (b - a) : svg5.prng() * a
 const noiseSeed = seed => svg5.simplex = svg5.initSimplexNoise(seed)
+const noise1D = x => svg5.simplex.noise1D(x)
+const noise2D = (x, y) => svg5.simplex.noise2D(x, y)
+const noise3D = (x, y, z) => svg5.simplex.noise3D(x, y, z)
+const noise4D = (x, y, z, w) => svg5.simplex.noise4D(x, y, z, w)
 const noise = function() { 
     return svg5.simplex[`noise${constrain(arguments.length, 1, 4)}D`](...arguments)
 }
