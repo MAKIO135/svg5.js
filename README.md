@@ -91,11 +91,9 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 ### Save SVG file
 - `save()`
 
-___
 ## Dependencies
 svg5 is using code from [simplex-noise.js](https://github.com/jwagner/simplex-noise.js) from [
 Jonas Wagner](https://github.com/jwagner) and [Alea](https://github.com/coverslide/node-alea) from Johannes Baagøe, packaged by [Richard Hoffman](https://github.com/coverslide)
 
-___
-License
+## License
 Copyright (c) 2020 Lionel RADISSON, licensed under the MIT License (enclosed)
