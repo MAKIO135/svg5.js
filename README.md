@@ -73,7 +73,7 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `quadraticVertex(x1, y1, x, y)`
 - `endShape([CLOSE])`
 
-### Math helpers()
+### Math helpers
 - `random()` random(max) or random(min, max)
 - `noiseSeed(seed)`
 - `noise(x [, y , z , w])` computes a value using simplex noise 1D to 4D.
