@@ -70,6 +70,7 @@ const circle = (cx, cy, diameter) => svg5.addElement('circle', `cx="${cx}" cy="$
 const ellipse = (cx, cy, w, h) => svg5.addElement('ellipse', `cx="${cx}" cy="${cy}" rx="${w/2}" ry="${h/2}"`)
 const rect = (x, y, w, h) => svg5.addElement('rect', `x="${x}" y="${y}" width="${w}" height="${h}"`)
 const square = (x, y, w) => rect(x, y, w, w)
+const point = (x, y) => rect(x, y, 1, 1)
 const polyline = (...pts) => svg5.addElement('polyline', `points="${pts.join(' ')}"`)
 const line = (x1, y1, x2, y2) => polyline(x1, y1, x2, y2)
 const polygon = (...pts) => svg5.addElement('polygon', `points="${pts.join(' ')}"`)
