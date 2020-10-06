@@ -19,17 +19,7 @@ const svg5 = {
         return new SimplexNoise(seed)
     },
     addElement: (type, params) => {
-        svg5.html += `<${type} 
-        ${svg5.transform ? `transform="${svg5.transform.split('|').join(' ')}"` : ''} 
-        ${svg5.opacity !== 1 ? `opacity="${svg5.opacity}"` : ''}
-        stroke="${svg5.strokeColor}"
-        stroke-width="${svg5.strokeWidth}"
-        stroke-linecap="${svg5.strokeCap}"
-        stroke-linejoin="${svg5.strokeJoin}"
-        ${svg5.strokeDashArray.length ? `stroke-strokedasharray="${svg5.strokeDashArray.join(' ')}"` : ''}
-        fill="${svg5.fillColor}"
-        ${params}
-        />`
+        svg5.html += `<${type} ${svg5.transform ? `transform="${svg5.transform.split('|').join(' ')}"` : ''} ${svg5.opacity !== 1 ? `opacity="${svg5.opacity}"` : ''} stroke="${svg5.strokeColor}" stroke-width="${svg5.strokeWidth}" stroke-linecap="${svg5.strokeCap}" stroke-linejoin="${svg5.strokeJoin}" ${svg5.strokeDashArray.length ? `stroke-strokedasharray="${svg5.strokeDashArray.join(' ')}"` : ''} fill="${svg5.fillColor}" ${params} />`
     },
     parseColor: function(a, b, c, d){
         if(typeof arguments[0] === 'string') return arguments[0]
