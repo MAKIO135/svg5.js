@@ -5,7 +5,10 @@ A tiny JS library to generate static SVGs for plotters, lasercutting, embroidery
 ```html
 <script src="https://cdn.jsdelivr.net/gh/MAKIO135/svg5.js/svg5.min.js"></script>
 <script>
-    createSVG(windowWidth, windowHeight)
+    // Create an SVG element
+    createSVG(500, 500)
+
+    // Add content / elements
     background('red')
     stroke('black')
     noFill()
@@ -18,14 +21,16 @@ A tiny JS library to generate static SVGs for plotters, lasercutting, embroidery
         vertex(width + 10, height + 100)
         endShape(CLOSE)
     }
+
+    // Finally, render the svg
+    render() 
 </script>
 ```
 
 ## Documentation
 
 Start by creating an SVG element using the `createSVG` function:
-- `createSVG(width, height [, parentCSSSelector])`
-You can specify a CSS selector as third parameter to let the library know where to append the SVG. By default, SVG is appended to the `body` of the page.  
+- `createSVG(width, height)`
 Then, simply draw your elements like a Processing sketch!
 
 ### Global variables
@@ -92,6 +97,10 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `scale()` scale(n) for uniform scale or scale(x, y).
 - `push()` start a new drawing state.
 - `pop()` restore previous state.
+
+### Render SVG
+- `render(parentCSSSelector)`
+You can specify a CSS selector as third parameter to let the library know where to append the SVG. By default, SVG is appended to the `body` of the page.  
 
 ### Save SVG file
 - `save()`

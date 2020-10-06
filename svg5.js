@@ -19,7 +19,7 @@ const svg5 = {
         return new SimplexNoise(seed)
     },
     addElement: (type, params) => {
-        svg5.svg.innerHTML += `<${type} 
+        svg5.html += `<${type} 
         ${svg5.transform ? `transform="${svg5.transform.split('|').join(' ')}"` : ''} 
         ${svg5.opacity !== 1 ? `opacity="${svg5.opacity}"` : ''}
         stroke="${svg5.strokeColor}"
@@ -47,11 +47,14 @@ svg5.simplex = svg5.initSimplexNoise(svg5.prng)
 let width, height
 const CLOSE = true
 
-const createSVG = (w, h, parentSelector = 'body') => {
+const createSVG = (w, h) => {
     width = w
     height = h
-    const id = `svg5_${Date.now()}`
-    document.querySelector(parentSelector).innerHTML += `<svg id="${id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${w} ${h}" width="${w}" height="${h}"></svg>`
+}
+
+const render = (parentSelector = 'body') => {
+    svg5.id = `svg5_${Date.now()}`
+    document.querySelector(parentSelector).innerHTML += `<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${svg5.html}</svg>`
     svg5.svg = document.querySelector(`#${id}`)
     svg5.svg.addEventListener('contextmenu', e => {
         e.preventDefault()
@@ -60,8 +63,8 @@ const createSVG = (w, h, parentSelector = 'body') => {
 }
 
 // Styling
-const clear = () => svg5.svg.innerHTML = ''
-const background = c => svg5.svg.innerHTML += `<rect stroke="none" fill="${c}" x="0" y="0" width="${width}" height="${height}" />`
+const clear = () => svg5.html = ''
+const background = c => svg5.html += `<rect stroke="none" fill="${c}" x="0" y="0" width="${width}" height="${height}" />`
 const opacity = n => svg5.opacity = n
 const fill = (...args) => svg5.fillColor = svg5.parseColor(...args)
 const noFill = () => svg5.fillColor = 'none'
@@ -127,12 +130,11 @@ const pop = () => {
 
 // Save SVG file
 const save = () => {
-    const svgData = svg5.svg.outerHTML
-    const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' })
+    const svgBlob = new Blob([svg5.html], { type: 'image/svg+xml;charset=utf-8' })
     const svgUrl = URL.createObjectURL(svgBlob)
     const downloadLink = document.createElement('a')
     downloadLink.href = svgUrl
-    downloadLink.download = 'export.svg'
+    downloadLink.download = `${svg5.id}.svg`
     document.body.appendChild(downloadLink)
     downloadLink.click()
     document.body.removeChild(downloadLink)
