@@ -121,7 +121,7 @@ const pop = () => {
 
 // Save SVG file
 const save = () => {
-    const svgBlob = new Blob([svg5.html], { type: 'image/svg+xml;charset=utf-8' })
+    const svgBlob = new Blob([`<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${svg5.html}</svg>`], { type: 'image/svg+xml;charset=utf-8' })
     const svgUrl = URL.createObjectURL(svgBlob)
     const downloadLink = document.createElement('a')
     downloadLink.href = svgUrl
