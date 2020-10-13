@@ -45,7 +45,7 @@ const createSVG = (w, h) => {
 const render = (parentSelector = 'body') => {
     svg5.id = `svg5_${Date.now()}`
     document.querySelector(parentSelector).innerHTML += `<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${svg5.html}</svg>`
-    svg5.svg = document.querySelector(`#${id}`)
+    svg5.svg = document.querySelector(`#${svg5.id}`)
     svg5.svg.addEventListener('contextmenu', e => {
         e.preventDefault()
         save()
