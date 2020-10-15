@@ -1,5 +1,5 @@
 # svg5.js
-A tiny JS library to generate static SVGs for plotters, lasercutting, embroidery and more, based on Processing/p5js syntax.
+svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, embroidery and more, based on Processing/p5js syntax.
 
 ## Example
 ```html
@@ -28,7 +28,6 @@ A tiny JS library to generate static SVGs for plotters, lasercutting, embroidery
 ```
 
 ## Documentation
-
 Start by creating an SVG element using the `createSVG` function:
 - `createSVG(width, height)`
 Then, simply draw your elements like a Processing sketch!
@@ -101,6 +100,7 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 ### Render SVG
 - `render([parentCSSSelector])`
 You can specify a CSS selector as third parameter to let the library know where to append the SVG. By default, SVG is appended to the `body` of the page.  
+**You can simply right click the SVG to download it 🙂**
 
 ### Save SVG file
 - `save()`
