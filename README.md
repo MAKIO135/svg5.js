@@ -99,7 +99,7 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `pop()` restore previous state.
 
 ### Render SVG
-- `render(parentCSSSelector)`
+- `render([parentCSSSelector])`
 You can specify a CSS selector as third parameter to let the library know where to append the SVG. By default, SVG is appended to the `body` of the page.  
 
 ### Save SVG file
