@@ -58,7 +58,7 @@ Then, simply draw your elements like a Processing sketch!
 - `noFill()`
 - `stroke(color)`
 - `strokeWidth(n)` 
-- `strokeWeight(n)` alias for `strokeWidth`.
+- `strokeWeight(n)` alias for `strokeWidth` to keep p5js naming.
 - `strokeCap(style)`
 - `strokeJoin(style)`
 - `noStroke()`
