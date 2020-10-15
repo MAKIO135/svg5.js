@@ -105,7 +105,8 @@ You can specify a CSS selector as third parameter to let the library know where 
 ### Save SVG file
 - `save()`
 
-### Output SVG as HTML string
+### SVG helpers
+- `precision(n)` set the number of digits wanted after floating point
 - `getHTML()` returns the SVG as an HTML String
 
 ## Dependencies

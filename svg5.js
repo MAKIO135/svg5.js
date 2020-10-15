@@ -24,11 +24,14 @@ const svg5 = {
     parseColor: function(a, b, c, d){
         if(typeof arguments[0] === 'string') return arguments[0]
         
-        return arguments.length === 1 ? `rgb(${a}, ${a}, ${a})` : // single grey value from 0 to 255
-        arguments.length === 2 ? `rgba(${a}, ${a}, ${a}, ${(b / 255).toFixed(3)})` : // grey, alpha from 0 to 255
-        arguments.length === 3 ? `rgb(${a}, ${b}, ${c})` : // r,g,b values from 0 to 255
-        arguments.length === 4 ? `rgba(${a}, ${b}, ${c}, ${(d / 255).toFixed(3)})` : // r,g,b,alpha values from 0 to 255
+        return arguments.length === 1 ? `rgb(${svg5.round(a)}, ${svg5.round(a)}, ${svg5.round(a)})` : // single grey value from 0 to 255
+        arguments.length === 2 ? `rgba(${svg5.round(a)}, ${svg5.round(a)}, ${svg5.round(a)}, ${(b / 255).toFixed(3)})` : // grey, alpha from 0 to 255
+        arguments.length === 3 ? `rgb(${svg5.round(a)}, ${svg5.round(b)}, ${svg5.round(c)})` : // r,g,b values from 0 to 255
+        arguments.length === 4 ? `rgba(${svg5.round(a)}, ${svg5.round(b)}, ${svg5.round(c)}, ${(d / 255).toFixed(3)})` : // r,g,b,alpha values from 0 to 255
         'black'
+    },
+    round: n => {
+        return svg5.precision === undefined ? n : n.toFixed(svg5.precision)
     },
 }
 svg5.prng = svg5.initAlea()
@@ -54,9 +57,11 @@ const render = (parentSelector = 'body') => {
     }, false)
 }
 
+const precision = n => svg5.precision = Math.min(0, ~~n)
+
 // Styling
 const clear = () => svg5.html = ''
-const background = c => svg5.html += `<rect stroke="none" fill="${c}" x="0" y="0" width="${width}" height="${height}" />`
+const background = c => svg5.html += `<rect stroke="none" fill="${c}" x="0" y="0" width="${svg5.round(width)}" height="${svg5.round(height)}" />`
 const opacity = n => svg5.opacity = n
 const fill = (...args) => svg5.fillColor = svg5.parseColor(...args)
 const noFill = () => svg5.fillColor = 'none'
@@ -68,14 +73,14 @@ const strokeJoin = type => svg5.strokeJoin = type
 const noStroke = () => svg5.strokeColor = 'none'
 
 // Shapes
-const circle = (cx, cy, diameter) => svg5.addElement('circle', `cx="${cx}" cy="${cy}" r="${diameter/2}"`)
-const ellipse = (cx, cy, w, h) => svg5.addElement('ellipse', `cx="${cx}" cy="${cy}" rx="${w/2}" ry="${h/2}"`)
-const rect = (x, y, w, h) => svg5.addElement('rect', `x="${x}" y="${y}" width="${w}" height="${h}"`)
+const circle = (cx, cy, diameter) => svg5.addElement('circle', `cx="${svg5.round(cx)}" cy="${svg5.round(cy)}" r="${svg5.round(diameter/2)}"`)
+const ellipse = (cx, cy, w, h) => svg5.addElement('ellipse', `cx="${svg5.round(cx)}" cy="${svg5.round(cy)}" rx="${svg5.round(w/2)}" ry="${svg5.round(h/2)}"`)
+const rect = (x, y, w, h) => svg5.addElement('rect', `x="${svg5.round(x)}" y="${svg5.round(y)}" width="${svg5.round(w)}" height="${svg5.round(h)}"`)
 const square = (x, y, w) => rect(x, y, w, w)
 const point = (x, y) => rect(x, y, 1, 1)
-const polyline = (...pts) => svg5.addElement('polyline', `points="${pts.join(' ')}"`)
+const polyline = (...pts) => svg5.addElement('polyline', `points="${pts.map(svg5.round).join(' ')}"`)
 const line = (x1, y1, x2, y2) => polyline(x1, y1, x2, y2)
-const polygon = (...pts) => svg5.addElement('polygon', `points="${pts.join(' ')}"`)
+const polygon = (...pts) => svg5.addElement('polygon', `points="${pts.map(svg5.round).join(' ')}"`)
 const triangle = (x1, y1, x2, y2, x3, y3) => polygon(x1, y1, x2, y2, x3, y3)
 const quad = (x1, y1, x2, y2, x3, y3, x4, y4) => polygon(x1, y1, x2, y2, x3, y3, x4, y4)
 const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
@@ -89,10 +94,10 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
 
 // Vertex shapes
 const beginShape = () => svg5.path = []
-const vertex = (x, y) => svg5.path.push(`${svg5.path.length == 0 ? 'M' : 'L'}${x},${y}`)
-const bezierVertex = (x1, y1, x2, y2, x, y) => svg5.path.push(`C ${x1} ${y1}, ${x2} ${y2}, ${x} ${y}`)
-const cubicVertex = (x2, y2, x, y) => svg5.path.push(`S ${x2} ${y2}, ${x} ${y}`)
-const quadraticVertex = (x1, y1, x, y) => svg5.path.push(`Q ${x1} ${y1}, ${x} ${y}`)
+const vertex = (x, y) => svg5.path.push(`${svg5.path.length == 0 ? 'M' : 'L'}${svg5.round(x)},${svg5.round(y)}`)
+const bezierVertex = (x1, y1, x2, y2, x, y) => svg5.path.push(`C ${svg5.round(x1)} ${svg5.round(y1)}, ${svg5.round(x2)} ${svg5.round(y2)}, ${svg5.round(x)} ${svg5.round(y)}`)
+const cubicVertex = (x2, y2, x, y) => svg5.path.push(`S ${svg5.round(x2)} ${svg5.round(y2)}, ${svg5.round(x)} ${svg5.round(y)}`)
+const quadraticVertex = (x1, y1, x, y) => svg5.path.push(`Q ${svg5.round(x1)} ${svg5.round(y1)}, ${svg5.round(x)} ${svg5.round(y)}`)
 const endShape = closed => svg5.addElement('path', `d="${svg5.path.join(' ')}${closed ? ' Z' : ''}"`)
 
 // Math helpers
@@ -111,9 +116,9 @@ const noise = function() {
 }
 
 // Matrix transformations
-const translate = (x, y) => svg5.transform += `translate(${x}, ${y})`
-const rotate = angle => svg5.transform += `rotate(${angle})`
-const scale = (x, y) => svg5.transform += y ? y : x`scale(${x})`
+const translate = (x, y) => svg5.transform += `translate(${svg5.round(x)}, ${svg5.round(y)})`
+const rotate = angle => svg5.transform += `rotate(${svg5.round(angle)})`
+const scale = (x, y) => svg5.transform += y ? y : x`scale(${svg5.round(x)})`
 const push = () => svg5.transform += `|`
 const pop = () => {
     let tmp = svg5.transform.split('|')
