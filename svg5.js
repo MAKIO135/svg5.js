@@ -100,6 +100,10 @@ const cubicVertex = (x2, y2, x, y) => svg5.path.push(`S ${svg5.round(x2)} ${svg5
 const quadraticVertex = (x1, y1, x, y) => svg5.path.push(`Q ${svg5.round(x1)} ${svg5.round(y1)}, ${svg5.round(x)} ${svg5.round(y)}`)
 const endShape = closed => svg5.addElement('path', `d="${svg5.path.join(' ')}${closed ? ' Z' : ''}"`)
 
+// Group
+const beginGroup = () => svg5.html += `<g>`
+const endGroup = () => svg5.html += `</g>`
+
 // Math helpers
 const lerp = (a, b, t) => a * (1 - t) + b * t
 const map = (n, a, b, c, d) => lerp(c, d, (n - a) / (b - a))
