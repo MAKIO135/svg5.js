@@ -105,6 +105,9 @@ You can specify a CSS selector as third parameter to let the library know where 
 ### Save SVG file
 - `save()`
 
+### Output SVG as HTML string
+- `getHTML()` returns the SVG as an HTML String
+
 ## Dependencies
 svg5 is using code from [simplex-noise.js](https://github.com/jwagner/simplex-noise.js) from [
 Jonas Wagner](https://github.com/jwagner) and [Alea](https://github.com/coverslide/node-alea) from Johannes Baagøe, packaged by [Richard Hoffman](https://github.com/coverslide)

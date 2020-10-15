@@ -42,9 +42,11 @@ const createSVG = (w, h) => {
     height = h
 }
 
+const getHTML = () => `<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5.round(width)} ${svg5.round(height)}" width="${svg5.round(width)}" height="${svg5.round(height)}">${svg5.html}</svg>`
+
 const render = (parentSelector = 'body') => {
     svg5.id = `svg5_${Date.now()}`
-    document.querySelector(parentSelector).innerHTML += `<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${svg5.html}</svg>`
+    document.querySelector(parentSelector).innerHTML += getHTML()
     svg5.svg = document.querySelector(`#${svg5.id}`)
     svg5.svg.addEventListener('contextmenu', e => {
         e.preventDefault()
@@ -121,7 +123,7 @@ const pop = () => {
 
 // Save SVG file
 const save = () => {
-    const svgBlob = new Blob([`<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">${svg5.html}</svg>`], { type: 'image/svg+xml;charset=utf-8' })
+    const svgBlob = new Blob([getHTML()], { type: 'image/svg+xml;charset=utf-8' })
     const svgUrl = URL.createObjectURL(svgBlob)
     const downloadLink = document.createElement('a')
     downloadLink.href = svgUrl
