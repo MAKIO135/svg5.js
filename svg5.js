@@ -1,4 +1,5 @@
 const svg5 = {
+    html: '',
     fillColor: 'white',
     strokeColor: 'black',
     strokeWidth: 1,
@@ -22,6 +23,10 @@ const svg5 = {
     addElement: (type, params) => {
         svg5.html += `<${type} ${svg5.transform ? `transform="${svg5.transform.split('|').join(' ')}"` : ''} ${svg5.opacity !== 1 ? `opacity="${svg5.opacity}"` : ''} stroke="${svg5.strokeColor}" stroke-width="${svg5.strokeWidth}" stroke-linecap="${svg5.strokeCap}" stroke-linejoin="${svg5.strokeJoin}" ${svg5.strokeDashArray.length ? `stroke-strokedasharray="${svg5.strokeDashArray.join(' ')}"` : ''} fill="${svg5.fillColor}" ${params} />`
     },
+    round: n => {
+        if (!typeof n === 'number') n = parseFloat(n)
+        return svg5.precision === undefined ? n : n.toFixed(svg5.precision)
+    },
     parseColor: function(a, b, c, d){
         if(typeof arguments[0] === 'string') return arguments[0]
         
@@ -30,9 +35,6 @@ const svg5 = {
         arguments.length === 3 ? `rgb(${svg5.round(a)}, ${svg5.round(b)}, ${svg5.round(c)})` : // r,g,b values from 0 to 255
         arguments.length === 4 ? `rgba(${svg5.round(a)}, ${svg5.round(b)}, ${svg5.round(c)}, ${(d / 255).toFixed(3)})` : // r,g,b,alpha values from 0 to 255
         'black'
-    },
-    round: n => {
-        return svg5.precision === undefined ? n : n.toFixed(svg5.precision)
     },
 }
 svg5.prng = svg5.initAlea()
