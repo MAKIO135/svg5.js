@@ -33,6 +33,7 @@ const svg5 = {
         'black'
     },
     round: n => {
+        if (!typeof n === 'number') n = parseFloat(n)
         return svg5.precision === undefined ? n : n.toFixed(svg5.precision)
     },
 }
