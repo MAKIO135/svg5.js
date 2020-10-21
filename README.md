@@ -77,6 +77,10 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `quadraticVertex(x1, y1, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/quadraticVertex)
 - `endShape([CLOSE])` [See doc on p5js](https://p5js.org/reference/#/p5/endShape)
 
+### Groups
+- `beginGroup()` starts an SVG group `<g>`. Transformations are added to the group (-> cleaner SVG).
+- `endGroup()` closes an SVG group `</g>`
+
 ### Math helpers
 - `lerp(a, b, t)` calculates value between `a` and `b` at a specific increment between 0 and 1.
 - `map(n, start1, end1, start2, end2)` re-maps a number from one range to another.
