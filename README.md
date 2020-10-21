@@ -27,6 +27,12 @@ svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, em
 </script>
 ```
 
+More examples here:
+- https://editor.p5js.org/makio135/sketches/wquU-A1DQ
+- https://editor.p5js.org/makio135/sketches/vwqbI49mr
+- https://editor.p5js.org/makio135/sketches/J13KRFIJM
+
+
 ## Documentation
 Start by creating an SVG element using the `createSVG` function:
 - `createSVG(width, height)`
@@ -113,8 +119,21 @@ You can specify a CSS selector as third parameter to let the library know where 
 - `precision(n)` set the number of digits wanted after floating point
 - `getHTML()` returns the SVG as an HTML String
 
+## NPM
+svg5 is also available on NPM: `npm i svg5`
+
+```js
+const svg5 = require('svg5')
+svg5.createSVG(500, 500)
+svg5.background(0)
+svg5.fill(255)
+svg5.noStroke()
+svg5.circle(svg5.width/2, svg5/height/2, 200)
+```
+See https://glitch.com/edit/#!/svg5?path=server.js for example.
+
 ## Dependencies
-svg5 is using code from [simplex-noise.js](https://github.com/jwagner/simplex-noise.js) from [
+No dependencies but svg5 is using code from [simplex-noise.js](https://github.com/jwagner/simplex-noise.js) from [
 Jonas Wagner](https://github.com/jwagner) and [Alea](https://github.com/coverslide/node-alea) from Johannes Baagøe, packaged by [Richard Hoffman](https://github.com/coverslide)
 
 ## License
