@@ -126,7 +126,7 @@ const noise = function() {
 // Matrix transformations
 const translate = (x, y) => svg5.transform += `translate(${svg5.round(x)}, ${svg5.round(y)})`
 const rotate = angle => svg5.transform += `rotate(${svg5.round(angle)})`
-const scale = (x, y) => svg5.transform += y ? y : x`scale(${svg5.round(x)})`
+const scale = (x, y) => svg5.transform += y ? `scale(${svg5.round(x)}, ${svg5.round(y)})` : `scale(${svg5.round(x)})`
 const push = () => svg5.transform += `|`
 const pop = () => {
     let tmp = svg5.transform.split('|')
