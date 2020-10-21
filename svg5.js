@@ -8,6 +8,7 @@ const svg5 = {
     opacity: 1,
     transform: '',
     path: [],
+    CLOSE: true,
     // Alea: https://github.com/coverslide/node-alea
     initAlea: (seed = Date.now()) => {
         function Alea(){return function(a){let b=0,d=0,e=0,f=1;0==a.length&&(a=[+new Date]);let g=Mash();b=g(" "),d=g(" "),e=g(" ");for(let c=0;c<a.length;c++)b-=g(a[c]),0>b&&(b+=1),d-=g(a[c]),0>d&&(d+=1),e-=g(a[c]),0>e&&(e+=1);g=null;const h=()=>{const a=2091639*b+23283064365386963e-26*f;return b=d,d=e,e=a-(f=0|a)};return h.uint32=()=>4294967296*h(),h.fract53=()=>h()+11102230246251565e-32*(0|2097152*h()),h.args=a,h}(Array.prototype.slice.call(arguments))}function Mash(){let a=4022871197;const b=b=>{b=b.toString();for(let c=0;c<b.length;c++){a+=b.charCodeAt(c);let d=.02519603282416938*a;a=d>>>0,d-=a,d*=a,a=d>>>0,d-=a,a+=4294967296*d}return 23283064365386963e-26*(a>>>0)};return b}
@@ -41,14 +42,14 @@ let width, height
 const CLOSE = true
 
 const createSVG = (w, h) => {
-    width = w
-    height = h
+    svg5.id = `svg5_${Date.now()}`
+    width = svg5.width = w
+    height = svg5.height = h
 }
 
-const getHTML = () => `<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5.round(width)} ${svg5.round(height)}" width="${svg5.round(width)}" height="${svg5.round(height)}">${svg5.html}</svg>`
+const getHTML = () => `<svg id="${svg5.id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5.round(svg5.width)} ${svg5.round(svg5.height)}" width="${svg5.round(svg5.width)}" height="${svg5.round(svg5.height)}">${svg5.html}</svg>`
 
 const render = (parentSelector = 'body') => {
-    svg5.id = `svg5_${Date.now()}`
     document.querySelector(parentSelector).innerHTML += getHTML()
     svg5.svg = document.querySelector(`#${svg5.id}`)
     svg5.svg.addEventListener('contextmenu', e => {
@@ -61,7 +62,7 @@ const precision = n => svg5.precision = Math.max(0, ~~n)
 
 // Styling
 const clear = () => svg5.html = ''
-const background = c => svg5.html += `<rect stroke="none" fill="${c}" x="0" y="0" width="${svg5.round(width)}" height="${svg5.round(height)}" />`
+const background = (...args) => svg5.html += `<rect stroke="none" fill="${svg5.parseColor(...args)}" x="0" y="0" width="${svg5.round(svg5.width)}" height="${svg5.round(svg5.height)}" />`
 const opacity = n => svg5.opacity = n
 const fill = (...args) => svg5.fillColor = svg5.parseColor(...args)
 const noFill = () => svg5.fillColor = 'none'
@@ -100,6 +101,13 @@ const cubicVertex = (x2, y2, x, y) => svg5.path.push(`S ${svg5.round(x2)} ${svg5
 const quadraticVertex = (x1, y1, x, y) => svg5.path.push(`Q ${svg5.round(x1)} ${svg5.round(y1)}, ${svg5.round(x)} ${svg5.round(y)}`)
 const endShape = closed => svg5.addElement('path', `d="${svg5.path.join(' ')}${closed ? ' Z' : ''}"`)
 
+// Group
+const beginGroup = () => {
+    svg5.html += svg5.transform ? `<g transform="${svg5.transform.split('|').join(' ')}" >` : `<g>`
+    svg5.transform = ''
+}
+const endGroup = () => svg5.html += `</g>`
+
 // Math helpers
 const lerp = (a, b, t) => a * (1 - t) + b * t
 const map = (n, a, b, c, d) => lerp(c, d, (n - a) / (b - a))
@@ -118,7 +126,7 @@ const noise = function() {
 // Matrix transformations
 const translate = (x, y) => svg5.transform += `translate(${svg5.round(x)}, ${svg5.round(y)})`
 const rotate = angle => svg5.transform += `rotate(${svg5.round(angle)})`
-const scale = (x, y) => svg5.transform += y ? y : x`scale(${svg5.round(x)})`
+const scale = (x, y) => svg5.transform += y ? `scale(${svg5.round(x)}, ${svg5.round(y)})` : `scale(${svg5.round(x)})`
 const push = () => svg5.transform += `|`
 const pop = () => {
     let tmp = svg5.transform.split('|')
@@ -136,4 +144,58 @@ const save = () => {
     document.body.appendChild(downloadLink)
     downloadLink.click()
     document.body.removeChild(downloadLink)
+}
+
+// Basic node module export
+if (typeof module !== 'undefined') {
+    svg5.createSVG = createSVG
+    svg5.getHTML = getHTML
+    svg5.precision = precision
+    svg5.clear = clear
+    svg5.background = background
+    svg5.opacity = opacity
+    svg5.fill = fill
+    svg5.noFill = noFill
+    svg5.stroke = stroke
+    svg5.strokeWidth = strokeWidth
+    svg5.strokeWeight = strokeWeight
+    svg5.strokeCap = strokeCap
+    svg5.strokeJoin = strokeJoin
+    svg5.noStroke = noStroke
+    svg5.circle = circle
+    svg5.ellipse = ellipse
+    svg5.rect = rect
+    svg5.square = square
+    svg5.point = point
+    svg5.polyline = polyline
+    svg5.line = line
+    svg5.polygon = polygon
+    svg5.triangle = triangle
+    svg5.quad = quad
+    svg5.regularPolygon = regularPolygon
+    svg5.beginShape = beginShape
+    svg5.vertex = vertex
+    svg5.bezierVertex = bezierVertex
+    svg5.cubicVertex = cubicVertex
+    svg5.quadraticVertex = quadraticVertex
+    svg5.endShape = endShape
+    svg5.beginGroup = beginGroup
+    svg5.endGroup = endGroup
+    svg5.lerp = lerp
+    svg5.map = map
+    svg5.constrain = constrain
+    svg5.randomSeed = randomSeed
+    svg5.random = random
+    svg5.noiseSeed = noiseSeed
+    svg5.noise1D = noise1D
+    svg5.noise2D = noise2D
+    svg5.noise3D = noise3D
+    svg5.noise4D = noise4D
+    svg5.noise = noise
+    svg5.translate = translate
+    svg5.rotate = rotate
+    svg5.scale = scale
+    svg5.push = push
+    svg5.pop = pop
+    module.exports = svg5
 }

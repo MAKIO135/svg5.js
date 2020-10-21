@@ -1,0 +1,25 @@
+{
+  "name": "svg5",
+  "version": "0.0.2",
+  "description": "svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, embroidery and more, based on Processing/p5js syntax.",
+  "main": "svg5.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MAKIO135/svg5.js.git"
+  },
+  "keywords": [
+    "SVG"
+  ],
+  "author": "makio135",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MAKIO135/svg5.js/issues"
+  },
+  "homepage": "https://github.com/MAKIO135/svg5.js#readme"
+}
