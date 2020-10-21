@@ -104,7 +104,7 @@ const endShape = closed => svg5.addElement('path', `d="${svg5.path.join(' ')}${c
 // Group
 const beginGroup = () => {
     svg5.html += svg5.transform ? `<g transform="${svg5.transform.split('|').join(' ')}" >` : `<g>`
-    delete svg5.transform
+    svg5.transform = ''
 }
 const endGroup = () => svg5.html += `</g>`
 
