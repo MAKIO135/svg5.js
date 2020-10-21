@@ -62,7 +62,7 @@ const precision = n => svg5.precision = Math.max(0, ~~n)
 
 // Styling
 const clear = () => svg5.html = ''
-const background = c => svg5.html += `<rect stroke="none" fill="${c}" x="0" y="0" width="${svg5.round(svg5.width)}" height="${svg5.round(svg5.height)}" />`
+const background = (...args) => svg5.html += `<rect stroke="none" fill="${svg5.parseColor(...args)}" x="0" y="0" width="${svg5.round(svg5.width)}" height="${svg5.round(svg5.height)}" />`
 const opacity = n => svg5.opacity = n
 const fill = (...args) => svg5.fillColor = svg5.parseColor(...args)
 const noFill = () => svg5.fillColor = 'none'
