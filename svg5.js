@@ -1,4 +1,5 @@
 const svg5 = {
+    html: '',
     fillColor: 'white',
     strokeColor: 'black',
     strokeWidth: 1,
