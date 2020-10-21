@@ -102,7 +102,10 @@ const quadraticVertex = (x1, y1, x, y) => svg5.path.push(`Q ${svg5.round(x1)} ${
 const endShape = closed => svg5.addElement('path', `d="${svg5.path.join(' ')}${closed ? ' Z' : ''}"`)
 
 // Group
-const beginGroup = () => svg5.html += `<g>`
+const beginGroup = () => {
+    svg5.html += svg5.transform ? `<g transform="${svg5.transform.split('|').join(' ')}" >` : `<g>`
+    delete svg5.transform
+}
 const endGroup = () => svg5.html += `</g>`
 
 // Math helpers
