@@ -53,8 +53,8 @@ const getHTML = () => `<svg id="${svg5._id}" xmlns="http://www.w3.org/2000/svg" 
 
 const render = (parentSelector = 'body') => {
     document.querySelector(parentSelector).innerHTML += getHTML()
-    svg5.svg = document.querySelector(`#${svg5.id}`)
-    svg5.svg.addEventListener('contextmenu', e => {
+    svg5._svg = document.querySelector(`#${svg5._id}`)
+    svg5._svg.addEventListener('contextmenu', e => {
         e.preventDefault()
         save()
     }, false)
