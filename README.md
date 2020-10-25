@@ -1,6 +1,8 @@
 # svg5.js
 svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, embroidery and more, based on Processing/p5js syntax.
 
+<img src="https://svg5.glitch.me/svg" width="100%">
+
 ## Example
 ```html
 <script src="https://cdn.jsdelivr.net/gh/MAKIO135/svg5.js/svg5.min.js"></script>
