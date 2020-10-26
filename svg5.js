@@ -94,6 +94,20 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     })
     polygon(...pts)
 }
+const arc = (cx, cy, w, h, a1, a2) => {
+    const rw = svg5._round(w / 2)
+    const rh = svg5._round(h / 2)
+    const p1 = {
+        x: svg5._round(cx + Math.cos(a1 / 360 * Math.PI * 2) * rw),
+        y: svg5._round(cy + Math.sin(a1 / 360 * Math.PI * 2) * rh)
+    }
+    const p2 = {
+        x: svg5._round(cx + Math.cos(a2 / 360 * Math.PI * 2) * rw),
+        y: svg5._round(cy + Math.sin(a2 / 360 * Math.PI * 2) * rh)
+    }
+    
+    svg5._addElement('path', `d="M ${p1.x} ${p1.y} A ${rw} ${rh} 0 ${a2 - a1 > 180 ? 1 : 0} ${a2 < a1 ? 0 : 1} ${p2.x} ${p2.y}"`)
+  }
 
 // Vertex shapes
 const beginShape = () => svg5._path = []
@@ -175,6 +189,7 @@ if (typeof module !== 'undefined') {
     svg5.triangle = triangle
     svg5.quad = quad
     svg5.regularPolygon = regularPolygon
+    svg5.arc = arc
     svg5.beginShape = beginShape
     svg5.vertex = vertex
     svg5.bezierVertex = bezierVertex
