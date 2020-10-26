@@ -55,6 +55,7 @@ Then, simply draw your elements like a Processing sketch!
 - `triangle(x1, y1, x2, y2, x3, y3)`
 - `quad(x1, y1, x2, y2, x3, y3, x4, y4)`
 - `polygon(x1, y1, x2, y2, x3, y3 [, …, xn, yn])`
+- `regularPolygon(centerX, centerY, radius [, startAngle])`: optional `startAngle` is in degrees
 - `arc(centerX, centerY, width, height, startAngle, endAngle)`: angles are in degrees
 
 ### Styling
