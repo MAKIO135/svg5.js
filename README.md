@@ -69,6 +69,7 @@ Then, simply draw your elements like a Processing sketch!
 - `strokeWeight(n)` alias for `strokeWidth` to keep p5js naming.
 - `strokeCap(style)`
 - `strokeJoin(style)`
+- `strokeDashArray(n1, n2 [, …, n])`
 - `noStroke()`
 
 The `color` parameter for `background`, `fill` and `stroke` functions can be passed either as:
