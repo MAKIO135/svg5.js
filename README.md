@@ -12,7 +12,7 @@ svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, em
 
     // Add content / elements
     background('red')
-    stroke('black')
+    stroke(0)
     noFill()
     for(let y = -150; y <= height + 150; y += 5){
         beginShape()
