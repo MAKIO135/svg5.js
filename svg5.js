@@ -166,6 +166,7 @@ const save = () => {
 if (typeof module !== 'undefined') {
     svg5.createSVG = createSVG
     svg5.getHTML = getHTML
+    svg5.render = render
     svg5.precision = precision
     svg5.clear = clear
     svg5.background = background
