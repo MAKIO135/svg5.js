@@ -88,8 +88,9 @@ const triangle = (x1, y1, x2, y2, x3, y3) => polygon(x1, y1, x2, y2, x3, y3)
 const quad = (x1, y1, x2, y2, x3, y3, x4, y4) => polygon(x1, y1, x2, y2, x3, y3, x4, y4)
 const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     const pts = new Array(nbPoints).fill(0).map((d, i) => {
-        const x = cx + Math.cos(i/nbPoints * Math.PI * 2 + angle) * radius
-        const y = cy + Math.sin(i/nbPoints * Math.PI * 2 + angle) * radius
+        const rads = i / nbPoints * Math.PI * 2 + radians(angle)
+        const x = cx + Math.cos(rads) * radius
+        const y = cy + Math.sin(rads) * radius
         return `${x},${y}`
     })
     polygon(...pts)
