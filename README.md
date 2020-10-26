@@ -93,6 +93,8 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `lerp(a, b, t)` calculates value between `a` and `b` at a specific increment between 0 and 1.
 - `map(n, start1, end1, start2, end2)` re-maps a number from one range to another.
 - `constrain(value, min, max)` constrains a value between a minimum and maximum value.
+- `radians(degrees)` converts a value in degrees to radians.
+- `degrees(radians)` converts a value in radians to degrees.
 - `random()` random(max) or random(min, max).
 - `randomSeed(seed)` sets the seed value for random().
 - `noise1D(x)` computes a value using simplex noise 1D.
