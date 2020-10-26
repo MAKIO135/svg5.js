@@ -73,6 +73,7 @@ const strokeWidth = n => svg5._strokeWidth = n
 const strokeWeight = strokeWidth // alias for strokeWidth
 const strokeCap = type => svg5._strokeCap = type
 const strokeJoin = type => svg5._strokeJoin = type
+const strokeDashArray = (...values) => svg5._strokeDashArray = values
 const noStroke = () => svg5._strokeColor = 'none'
 
 // Shapes
@@ -96,6 +97,8 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     polygon(...pts)
 }
 const arc = (cx, cy, w, h, a1, a2) => {
+    if(Math.abs(a1-a2) >= 360) return ellipse(cx, cy, a1, a2)
+
     const _a1 = radians(a1)
     const _a2 = radians(a2)
     const rw = svg5._round(w / 2)
@@ -183,6 +186,7 @@ if (typeof module !== 'undefined') {
     svg5.strokeWeight = strokeWeight
     svg5.strokeCap = strokeCap
     svg5.strokeJoin = strokeJoin
+    svg5.strokeDashArray = strokeDashArray
     svg5.noStroke = noStroke
     svg5.circle = circle
     svg5.ellipse = ellipse
