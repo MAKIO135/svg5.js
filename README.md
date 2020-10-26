@@ -134,7 +134,7 @@ svg5.createSVG(500, 500)
 svg5.background(0)
 svg5.fill(255)
 svg5.noStroke()
-svg5.circle(svg5.width/2, svg5/height/2, 200)
+svg5.circle(svg5.width/2, svg5.height/2, 200)
 ```
 See https://glitch.com/edit/#!/svg5?path=server.js for example.
 
