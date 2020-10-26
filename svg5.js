@@ -96,6 +96,8 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     polygon(...pts)
 }
 const arc = (cx, cy, w, h, a1, a2) => {
+    if(Math.abs(a1-a2) >= 360) return ellipse(cx, cy, a1, a2)
+
     const _a1 = radians(a1)
     const _a2 = radians(a2)
     const rw = svg5._round(w / 2)
