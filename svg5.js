@@ -88,11 +88,28 @@ const triangle = (x1, y1, x2, y2, x3, y3) => polygon(x1, y1, x2, y2, x3, y3)
 const quad = (x1, y1, x2, y2, x3, y3, x4, y4) => polygon(x1, y1, x2, y2, x3, y3, x4, y4)
 const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     const pts = new Array(nbPoints).fill(0).map((d, i) => {
-        const x = cx + Math.cos(i/nbPoints * Math.PI * 2 + angle) * radius
-        const y = cy + Math.sin(i/nbPoints * Math.PI * 2 + angle) * radius
+        const rads = i / nbPoints * Math.PI * 2 + radians(angle)
+        const x = cx + Math.cos(rads) * radius
+        const y = cy + Math.sin(rads) * radius
         return `${x},${y}`
     })
     polygon(...pts)
+}
+const arc = (cx, cy, w, h, a1, a2) => {
+    const _a1 = radians(a1)
+    const _a2 = radians(a2)
+    const rw = svg5._round(w / 2)
+    const rh = svg5._round(h / 2)
+    const p1 = {
+        x: svg5._round(cx + Math.cos(_a1) * rw),
+        y: svg5._round(cy + Math.sin(_a1) * rh)
+    }
+    const p2 = {
+        x: svg5._round(cx + Math.cos(_a2) * rw),
+        y: svg5._round(cy + Math.sin(_a2) * rh)
+    }
+    
+    svg5._addElement('path', `d="M ${p1.x} ${p1.y} A ${rw} ${rh} 0 ${Math.abs(a2 - a1) > 180 ? 1 : 0} ${a2 < a1 ? 0 : 1} ${p2.x} ${p2.y}"`)
 }
 
 // Vertex shapes
@@ -113,7 +130,9 @@ const endGroup = () => svg5.html += `</g>`
 // Math helpers
 const lerp = (a, b, t) => a * (1 - t) + b * t
 const map = (n, a, b, c, d) => lerp(c, d, (n - a) / (b - a))
-const constrain = (a, min, max) => a < min ? min : a > max ? max : a 
+const constrain = (a, min, max) => a < min ? min : a > max ? max : a
+const radians = degrees =>  degrees / 360 * (Math.PI * 2)
+const degrees = radians =>  radians / (Math.PI * 2) * 360
 const randomSeed = seed => svg5._prng = svg5._initAlea(seed)
 const random = (a, b) => (b || b === 0) ? a + svg5._prng() * (b - a) : svg5._prng() * a
 const noiseSeed = seed => svg5._simplex = svg5._initSimplexNoise(seed)
@@ -152,6 +171,7 @@ const save = () => {
 if (typeof module !== 'undefined') {
     svg5.createSVG = createSVG
     svg5.getHTML = getHTML
+    svg5.render = render
     svg5.precision = precision
     svg5.clear = clear
     svg5.background = background
@@ -175,6 +195,7 @@ if (typeof module !== 'undefined') {
     svg5.triangle = triangle
     svg5.quad = quad
     svg5.regularPolygon = regularPolygon
+    svg5.arc = arc
     svg5.beginShape = beginShape
     svg5.vertex = vertex
     svg5.bezierVertex = bezierVertex
@@ -186,6 +207,8 @@ if (typeof module !== 'undefined') {
     svg5.lerp = lerp
     svg5.map = map
     svg5.constrain = constrain
+    svg5.radians = radians
+    svg5.degrees = degrees
     svg5.randomSeed = randomSeed
     svg5.random = random
     svg5.noiseSeed = noiseSeed
