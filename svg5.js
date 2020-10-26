@@ -96,20 +96,20 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     polygon(...pts)
 }
 const arc = (cx, cy, w, h, a1, a2) => {
-    a1 = radians(a1)
-    a2 = radians(a2)
+    const _a1 = radians(a1)
+    const _a2 = radians(a2)
     const rw = svg5._round(w / 2)
     const rh = svg5._round(h / 2)
     const p1 = {
-        x: svg5._round(cx + Math.cos(a1) * rw),
-        y: svg5._round(cy + Math.sin(a1) * rh)
+        x: svg5._round(cx + Math.cos(_a1) * rw),
+        y: svg5._round(cy + Math.sin(_a1) * rh)
     }
     const p2 = {
-        x: svg5._round(cx + Math.cos(a2) * rw),
-        y: svg5._round(cy + Math.sin(a2) * rh)
+        x: svg5._round(cx + Math.cos(_a2) * rw),
+        y: svg5._round(cy + Math.sin(_a2) * rh)
     }
     
-    svg5._addElement('path', `d="M ${p1.x} ${p1.y} A ${rw} ${rh} 0 ${a2 - a1 > 180 ? 1 : 0} ${a2 < a1 ? 0 : 1} ${p2.x} ${p2.y}"`)
+    svg5._addElement('path', `d="M ${p1.x} ${p1.y} A ${rw} ${rh} 0 ${Math.abs(a2 - a1) > 180 ? 1 : 0} ${a2 < a1 ? 0 : 1} ${p2.x} ${p2.y}"`)
 }
 
 // Vertex shapes
