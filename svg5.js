@@ -95,19 +95,21 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     polygon(...pts)
 }
 const arc = (cx, cy, w, h, a1, a2) => {
+    a1 = radians(a1)
+    a2 = radians(a2)
     const rw = svg5._round(w / 2)
     const rh = svg5._round(h / 2)
     const p1 = {
-        x: svg5._round(cx + Math.cos(a1 / 360 * Math.PI * 2) * rw),
-        y: svg5._round(cy + Math.sin(a1 / 360 * Math.PI * 2) * rh)
+        x: svg5._round(cx + Math.cos(a1) * rw),
+        y: svg5._round(cy + Math.sin(a1) * rh)
     }
     const p2 = {
-        x: svg5._round(cx + Math.cos(a2 / 360 * Math.PI * 2) * rw),
-        y: svg5._round(cy + Math.sin(a2 / 360 * Math.PI * 2) * rh)
+        x: svg5._round(cx + Math.cos(a2) * rw),
+        y: svg5._round(cy + Math.sin(a2) * rh)
     }
     
     svg5._addElement('path', `d="M ${p1.x} ${p1.y} A ${rw} ${rh} 0 ${a2 - a1 > 180 ? 1 : 0} ${a2 < a1 ? 0 : 1} ${p2.x} ${p2.y}"`)
-  }
+}
 
 // Vertex shapes
 const beginShape = () => svg5._path = []
@@ -127,7 +129,9 @@ const endGroup = () => svg5.html += `</g>`
 // Math helpers
 const lerp = (a, b, t) => a * (1 - t) + b * t
 const map = (n, a, b, c, d) => lerp(c, d, (n - a) / (b - a))
-const constrain = (a, min, max) => a < min ? min : a > max ? max : a 
+const constrain = (a, min, max) => a < min ? min : a > max ? max : a
+const radians = degrees =>  degrees / 360 * (Math.PI * 2)
+const degrees = radians =>  radians / (Math.PI * 2) * 360
 const randomSeed = seed => svg5._prng = svg5._initAlea(seed)
 const random = (a, b) => (b || b === 0) ? a + svg5._prng() * (b - a) : svg5._prng() * a
 const noiseSeed = seed => svg5._simplex = svg5._initSimplexNoise(seed)
@@ -202,6 +206,8 @@ if (typeof module !== 'undefined') {
     svg5.lerp = lerp
     svg5.map = map
     svg5.constrain = constrain
+    svg5.radians = radians
+    svg5.degrees = degrees
     svg5.randomSeed = randomSeed
     svg5.random = random
     svg5.noiseSeed = noiseSeed
