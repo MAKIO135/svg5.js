@@ -33,6 +33,7 @@ More examples here:
 - https://editor.p5js.org/makio135/sketches/wquU-A1DQ
 - https://editor.p5js.org/makio135/sketches/vwqbI49mr
 - https://editor.p5js.org/makio135/sketches/J13KRFIJM
+- https://editor.p5js.org/makio135/sketches/OazqbYiMn
 
 
 ## Documentation
@@ -136,7 +137,10 @@ svg5.fill(255)
 svg5.noStroke()
 svg5.circle(svg5.width/2, svg5.height/2, 200)
 ```
-See https://glitch.com/edit/#!/svg5?path=server.js for example.
+
+Examples: 
+- https://observablehq.com/@makio135/hello-svg5
+- https://glitch.com/edit/#!/svg5?path=server.js
 
 ## Dependencies
 No dependencies but svg5 is using code from [simplex-noise.js](https://github.com/jwagner/simplex-noise.js) from [
