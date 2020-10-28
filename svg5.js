@@ -47,6 +47,16 @@ const createSVG = (w, h) => {
     svg5._id = `svg5_${Date.now()}`
     width = svg5.width = w
     height = svg5.height = h
+    svg5.html = ''
+    svg5._fillColor = 'white'
+    svg5._strokeColor = 'black'
+    svg5._strokeWidth = 1
+    svg5._strokeCap = 'butt' // butt, square or round
+    svg5._strokeJoin = 'miter' // miter, round or bevel
+    svg5._strokeDashArray = []
+    svg5._opacity = 1
+    svg5._transform = ''
+    svg5._path = []
 }
 
 const getHTML = () => `<svg id="${svg5._id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5._round(svg5.width)} ${svg5._round(svg5.height)}" width="${svg5._round(svg5.width)}" height="${svg5._round(svg5.height)}">${svg5.html}</svg>`
