@@ -137,7 +137,10 @@ const constrain = (a, min, max) => a < min ? min : a > max ? max : a
 const radians = degrees =>  degrees / 360 * (Math.PI * 2)
 const degrees = radians =>  radians / (Math.PI * 2) * 360
 const randomSeed = seed => svg5._prng = svg5._initAlea(seed)
-const random = (a, b) => (b || b === 0) ? a + svg5._prng() * (b - a) : svg5._prng() * a
+const random = (a, b) => {
+    if (a.length) return a[Math.random() * a.length | 0]
+    else return (b || b === 0) ? a + svg5._prng() * (b - a) : svg5._prng() * a
+}
 const noiseSeed = seed => svg5._simplex = svg5._initSimplexNoise(seed)
 const noise1D = x => svg5._simplex.noise1D(x)
 const noise2D = (x, y) => svg5._simplex.noise2D(x, y)
