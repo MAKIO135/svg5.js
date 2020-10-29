@@ -70,7 +70,7 @@ const render = (parentSelector = 'body') => {
     }, false)
 }
 
-const precision = n => svg5.precision = Math.max(0, ~~n)
+const precision = n => svg5._precision = Math.max(0, ~~n)
 
 // Styling
 const clear = () => svg5.html = ''
