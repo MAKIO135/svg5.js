@@ -21,10 +21,10 @@ const svg5 = {
         return new SimplexNoise(seed)
     },
     _addElement: (type, params) => {
-        svg5.html += `<${type} ${svg5._getTransform()} ${svg5._opacity !== 1 ? `opacity="${svg5._opacity}"` : ''} stroke="${svg5._strokeColor}" stroke-width="${svg5._strokeWidth}" stroke-linecap="${svg5._strokeCap}" stroke-linejoin="${svg5._strokeJoin}" ${svg5._strokeDashArray.length ? `stroke-dasharray="${svg5._strokeDashArray.join(' ')}"` : ''} fill="${svg5._fillColor}" ${params} />`
+        svg5.html += `<${type} stroke="${svg5._strokeColor}" stroke-width="${svg5._strokeWidth}" stroke-linecap="${svg5._strokeCap}" stroke-linejoin="${svg5._strokeJoin}"${svg5._strokeDashArray.length ? ` stroke-dasharray="${svg5._strokeDashArray.join(' ')}"` : ''} fill="${svg5._fillColor}" ${params}${svg5._getTransform()}${svg5._opacity !== 1 ? ` opacity="${svg5._opacity}"` : ''} />`
     },
     _addTransform: transform => svg5._transform[svg5._transform.length - 1].push(transform),
-    _getTransform: () => svg5._transform.length ? `transform="${svg5._transform[svg5._transform.length - 1].join(' ')}"` : '',
+    _getTransform: () => svg5._transform.length ? ` transform="${svg5._transform[svg5._transform.length - 1].join(' ')}"` : '',
     _round: n => {
         if (!typeof n === 'number') n = parseFloat(n)
         return svg5._precision === undefined ? n : n.toFixed(svg5._precision)
@@ -157,7 +157,7 @@ const noise = function() {
 
 // Group
 const beginGroup = () => {
-    svg5.html += `<g ${svg5._getTransform()}>`
+    svg5.html += `<g${svg5._getTransform()}>`
     svg5._transform.push([])
 }
 const endGroup = () => {
