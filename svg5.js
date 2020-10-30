@@ -7,7 +7,7 @@ const svg5 = {
     _strokeJoin: 'miter', // miter, round or bevel
     _strokeDashArray: [],
     _opacity: 1,
-    _transform: '',
+    _transform: [],
     _path: [],
     CLOSE: true,
     // Alea: https://github.com/coverslide/node-alea
@@ -21,8 +21,10 @@ const svg5 = {
         return new SimplexNoise(seed)
     },
     _addElement: (type, params) => {
-        svg5.html += `<${type} ${svg5._transform ? `transform="${svg5._transform.split('|').join(' ')}"` : ''} ${svg5._opacity !== 1 ? `opacity="${svg5._opacity}"` : ''} stroke="${svg5._strokeColor}" stroke-width="${svg5._strokeWidth}" stroke-linecap="${svg5._strokeCap}" stroke-linejoin="${svg5._strokeJoin}" ${svg5._strokeDashArray.length ? `stroke-dasharray="${svg5._strokeDashArray.join(' ')}"` : ''} fill="${svg5._fillColor}" ${params} />`
+        svg5.html += `<${type} stroke="${svg5._strokeColor}" stroke-width="${svg5._strokeWidth}" stroke-linecap="${svg5._strokeCap}" stroke-linejoin="${svg5._strokeJoin}"${svg5._strokeDashArray.length ? ` stroke-dasharray="${svg5._strokeDashArray.join(' ')}"` : ''} fill="${svg5._fillColor}" ${params}${svg5._getTransform()}${svg5._opacity !== 1 ? ` opacity="${svg5._opacity}"` : ''} />`
     },
+    _addTransform: transform => svg5._transform[svg5._transform.length - 1].push(transform),
+    _getTransform: () => svg5._transform.length ? ` transform="${svg5._transform[svg5._transform.length - 1].join(' ')}"` : '',
     _round: n => {
         if (!typeof n === 'number') n = parseFloat(n)
         return svg5._precision === undefined ? n : n.toFixed(svg5._precision)
@@ -55,7 +57,7 @@ const createSVG = (w, h) => {
     svg5._strokeJoin = 'miter' // miter, round or bevel
     svg5._strokeDashArray = []
     svg5._opacity = 1
-    svg5._transform = ''
+    svg5._transform = []
     svg5._path = []
 }
 
@@ -70,7 +72,7 @@ const render = (parentSelector = 'body') => {
     }, false)
 }
 
-const precision = n => svg5.precision = Math.max(0, ~~n)
+const precision = n => svg5._precision = Math.max(0, ~~n)
 
 // Styling
 const clear = () => svg5.html = ''
@@ -129,16 +131,9 @@ const arc = (cx, cy, w, h, a1, a2) => {
 const beginShape = () => svg5._path = []
 const vertex = (x, y) => svg5._path.push(`${svg5._path.length == 0 ? 'M' : 'L'}${svg5._round(x)},${svg5._round(y)}`)
 const bezierVertex = (x1, y1, x2, y2, x, y) => svg5._path.push(`C ${svg5._round(x1)} ${svg5._round(y1)}, ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5._round(y)}`)
-const cubicVertex = (x2, y2, x, y) => svg5._path.push(`S ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5_.round(y)}`)
+const cubicVertex = (x2, y2, x, y) => svg5._path.push(`S ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5._round(y)}`)
 const quadraticVertex = (x1, y1, x, y) => svg5._path.push(`Q ${svg5._round(x1)} ${svg5._round(y1)}, ${svg5._round(x)} ${svg5._round(y)}`)
 const endShape = closed => svg5._addElement('path', `d="${svg5._path.join(' ')}${closed ? ' Z' : ''}"`)
-
-// Group
-const beginGroup = () => {
-    svg5.html += svg5._transform ? `<g transform="${svg5._transform.split('|').join(' ')}" >` : `<g>`
-    svg5._transform = ''
-}
-const endGroup = () => svg5.html += `</g>`
 
 // Math helpers
 const lerp = (a, b, t) => a * (1 - t) + b * t
@@ -160,16 +155,22 @@ const noise = function() {
     return svg5._simplex[`noise${constrain(arguments.length, 1, 4)}D`](...arguments)
 }
 
-// Matrix transformations
-const translate = (x, y) => svg5._transform += `translate(${svg5._round(x)}, ${svg5._round(y)})`
-const rotate = angle => svg5._transform += `rotate(${svg5._round(angle)})`
-const scale = (x, y) => svg5._transform += y ? `scale(${svg5._round(x)}, ${svg5._round(y)})` : `scale(${svg5._round(x)})`
-const push = () => svg5._transform += `|`
-const pop = () => {
-    let tmp = svg5._transform.split('|')
-    tmp.pop()
-    svg5._transform = tmp.join('|')
+// Group
+const beginGroup = () => {
+    svg5.html += `<g${svg5._getTransform()}>`
+    svg5._transform.push([])
 }
+const endGroup = () => {
+    svg5._transform.pop()
+    svg5.html += `</g>`
+}
+
+// Matrix transformations
+const translate = (x, y) => svg5._addTransform(`translate(${svg5._round(x)}, ${svg5._round(y)})`)
+const rotate = angle => svg5._addTransform(`rotate(${svg5._round(angle)})`)
+const scale = (x, y) => svg5._addTransform(y ? `scale(${svg5._round(x)}, ${svg5._round(y)})` : `scale(${svg5._round(x)})`)
+const push = beginGroup
+const pop = endGroup
 
 // Save SVG file
 const save = () => {

@@ -49,7 +49,7 @@ Then, simply draw your elements like a Processing sketch!
 ### Shapes
 - `circle(centerX, centerY, radius)`
 - `ellipse(centerX, centerY, width, height)`
-- `rect(x, y, width, h)`
+- `rect(x, y, width, height)`
 - `square(x, y, width)`
 - `line(x1, y1, x2, y2)`
 - `polyline(x1, y1, x2, y2, x3, y3 [, …, xn, yn])`
