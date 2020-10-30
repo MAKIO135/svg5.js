@@ -7,7 +7,7 @@ const svg5 = {
     _strokeJoin: 'miter', // miter, round or bevel
     _strokeDashArray: [],
     _opacity: 1,
-    _transform: [],
+    _transform: [[]],
     _path: [],
     CLOSE: true,
     // Alea: https://github.com/coverslide/node-alea
@@ -29,7 +29,7 @@ const svg5 = {
         if (!typeof n === 'number') n = parseFloat(n)
         return svg5._precision === undefined ? n : n.toFixed(svg5._precision)
     },
-    _parseColor: function(a, b, c, d){
+    _parseColor: function(a, b, c, d) {
         if(typeof arguments[0] === 'string') return arguments[0]
         
         return arguments.length === 1 ? `rgb(${svg5._round(a)}, ${svg5._round(a)}, ${svg5._round(a)})` : // single grey value from 0 to 255
@@ -57,7 +57,7 @@ const createSVG = (w, h) => {
     svg5._strokeJoin = 'miter' // miter, round or bevel
     svg5._strokeDashArray = []
     svg5._opacity = 1
-    svg5._transform = []
+    svg5._transform = [[]]
     svg5._path = []
 }
 
