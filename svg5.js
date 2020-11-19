@@ -147,7 +147,7 @@ const random = (a, b) => {
     else return (b || b === 0) ? a + svg5._prng() * (b - a) : svg5._prng() * a
 }
 const noiseSeed = seed => svg5._simplex = svg5._initSimplexNoise(seed)
-const noise1D = x => svg5._simplex.noise1D(x)
+const noise1D = x => svg5._simplex.noise2D(x, 0)
 const noise2D = (x, y) => svg5._simplex.noise2D(x, y)
 const noise3D = (x, y, z) => svg5._simplex.noise3D(x, y, z)
 const noise4D = (x, y, z, w) => svg5._simplex.noise4D(x, y, z, w)
