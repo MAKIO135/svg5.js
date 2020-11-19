@@ -1,6 +1,6 @@
 {
   "name": "svg5",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, embroidery and more, based on Processing/p5js syntax.",
   "main": "svg5.js",
   "directories": {
