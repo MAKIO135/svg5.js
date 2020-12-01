@@ -47,7 +47,30 @@ Then, simply draw your elements like a Processing sketch!
 - `CLOSE`: used to specify if a path should be closed.
 
 ### Shapes
-- `circle(centerX, centerY, radius)`
+<details>
+<summary>- `circle(centerX, centerY, radius)`</summary>
+<table>
+  <tr>
+    <td style="width:49.5%;">![circle exemple](img/exemple-circle.png?raw=true "exemple-circle")</td>
+    <td>
+        <script>
+        // Create an SVG element
+            createSVG(500, 500)
+
+            // Add content / elements
+            background('grey')
+            stroke('white')
+            noFill()
+
+            circle(250, 250, 400)
+
+            // Finally, render the svg
+            render()
+        </script>
+    </td>
+  </tr>
+</table>
+</details>
 - `ellipse(centerX, centerY, width, height)`
 - `rect(x, y, width, height)`
 - `square(x, y, width)`
