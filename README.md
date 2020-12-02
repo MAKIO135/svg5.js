@@ -51,10 +51,11 @@ Then, simply draw your elements like a Processing sketch!
     <summary>`circle(centerX, centerY, radius)`</summary>
     <table>
         <tr>
-            <td style="width:49.5%;">
-            ![circle exemple](img/exemple-circle.png)
+            <td>
+                <img src="img/exemple-circle.png" alt="exemple circle image" width="50%">
             </td>
-            <td style="width:49.5%;">
+            <td>
+                ```html
                 <script>
                     // Create an SVG element
                     createSVG(500, 500)
@@ -66,6 +67,7 @@ Then, simply draw your elements like a Processing sketch!
                     // Finally, render the svg
                     render()
                 </script>
+                ```
             </td>
         </tr>
     </table>
