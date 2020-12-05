@@ -52,21 +52,19 @@ Then, simply draw your elements like a Processing sketch!
     <table>
         <tr>
             <td>
-                <img src="img/exemple-circle.png" alt="exemple circle image" width="50%">
+                <img src="img/exemple-circle.png" alt="exemple circle image" width="100%">
             </td>
             <td>
-                ```html
-                <script>
-                    // Create an SVG element
-                    createSVG(500, 500)
-                    // Add content / elements
-                    background('grey')
-                    stroke('white')
-                    noFill()
-                    circle(250, 250, 400)
-                    // Finally, render the svg
-                    render()
-                </script>
+                ```
+                // Create an SVG element
+                createSVG(500, 500)
+                // Add content / elements
+                background('grey')
+                stroke('white')
+                noFill()
+                circle(250, 250, 400)
+                // Finally, render the svg
+                render()
                 ```
             </td>
         </tr>
