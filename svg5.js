@@ -110,7 +110,7 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
 }
 const arc = (cx, cy, w, h, a1, a2) => {
     if(Math.abs(a1-a2) >= 360) return ellipse(cx, cy, a1, a2)
-
+    
     const _a1 = radians(a1)
     const _a2 = radians(a2)
     const rw = svg5._round(w / 2)
@@ -125,6 +125,63 @@ const arc = (cx, cy, w, h, a1, a2) => {
     }
     
     svg5._addElement('path', `d="M ${p1.x} ${p1.y} A ${rw} ${rh} 0 ${Math.abs(a2 - a1) > 180 ? 1 : 0} ${a2 < a1 ? 0 : 1} ${p2.x} ${p2.y}"`)
+}
+const spline = (...pts) => {
+    let smoothness = 1
+    let isClosed = false
+
+    if(pts.length % 2 == 1) {
+        smoothness = pts.pop()
+    }
+    else if(typeof pts[pts.length - 1] === 'boolean') {
+        isClosed = pts.pop()
+        smoothness = pts.pop()
+    }
+    
+    pts = pts.reduce((acc, curr, i) => {
+        if(!acc[i/2|0]) acc[i/2|0] = {}
+        acc[i/2|0][['x', 'y'][i%2]] = curr
+        return acc
+    }, [])
+    
+    const centers = []
+    for(let i = 0; i < pts.length - (isClosed ? 0 : 1); i++) {
+        const {x: x1, y: y1} = pts[i % pts.length]
+        const {x: x2, y: y2} = pts[(i + 1) % pts.length]
+        centers[i % pts.length] = {
+            x: (x1 + x2) / 2, 
+            y: (y1 + y2) / 2
+        }
+    }
+    
+    const ctrls = isClosed ? [] : [[pts[0], pts[0]]]
+    for(let i = isClosed ? 0 : 1; i < centers.length; i++) {
+        const pt = pts[i]
+        const c0 = centers[(centers.length + i - 1) % centers.length]
+        const c1 = centers[i]
+        const dx = (c0.x - c1.x) / 2
+        const dy = (c0.y - c1.y) / 2
+        
+        ctrls[i] = [
+            {
+                x: pt.x + smoothness * dx,
+                y: pt.y + smoothness * dy
+            },
+            {
+                x: pt.x - smoothness * dx,
+                y: pt.y - smoothness * dy
+            }
+        ]
+    }
+    
+    if(!isClosed) {
+        ctrls.push([
+            pts[pts.length - 1], 
+            pts[pts.length - 1]
+        ])
+    }
+
+    svg5._addElement('path', `d="M ${pts[0].x},${pts[0].y} ${centers.map((d, i) => `C ${ctrls[i][1].x}, ${ctrls[i][1].y} ${ctrls[(i + 1) % pts.length][0].x}, ${ctrls[(i + 1) % pts.length][0].y} ${pts[(i + 1) % pts.length].x}, ${pts[(i + 1) % pts.length].y}`).join(' ')}"`)
 }
 
 // Vertex shapes
@@ -214,6 +271,7 @@ if (typeof module !== 'undefined') {
     svg5.quad = quad
     svg5.regularPolygon = regularPolygon
     svg5.arc = arc
+    svg5.spline = spline
     svg5.beginShape = beginShape
     svg5.vertex = vertex
     svg5.bezierVertex = bezierVertex

@@ -76,6 +76,7 @@ Then, simply draw your elements like a Processing sketch!
 - `polygon(x1, y1, x2, y2, x3, y3 [, …, xn, yn])`
 - `regularPolygon(centerX, centerY, radius [, startAngle])`: optional `startAngle` is in degrees
 - `arc(centerX, centerY, width, height, startAngle, endAngle)`: angles are in degrees
+- `spline(x1, y1, x2, y2, x3, y3 [, …, xn, yn [, smoothness [, isClosed]]])`: optional `smoothness` from 0 to 1 (default: `1`) and optional boolean `isClosed` (default: `false`)
 
 ### Styling
 - `background(color)`
