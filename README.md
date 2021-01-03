@@ -47,7 +47,25 @@ Then, simply draw your elements like a Processing sketch!
 - `CLOSE`: used to specify if a path should be closed.
 
 ### Shapes
-- `circle(centerX, centerY, radius)`
+<details>
+    <summary>`circle(centerX, centerY, radius)`</summary>
+    <table>
+        <tr>
+            <td>
+                <img src="img/exemple-circle.png" alt="exemple circle image" width="100%">
+            </td>
+            <td>
+                createSVG(500, 500)
+                background('grey')
+                stroke('white')
+                noFill()
+                circle(250, 250, 400)
+                render()
+            </td>
+        </tr>
+    </table>
+</details>
+
 - `ellipse(centerX, centerY, width, height)`
 - `rect(x, y, width, height)`
 - `square(x, y, width)`
@@ -58,6 +76,7 @@ Then, simply draw your elements like a Processing sketch!
 - `polygon(x1, y1, x2, y2, x3, y3 [, …, xn, yn])`
 - `regularPolygon(centerX, centerY, radius [, startAngle])`: optional `startAngle` is in degrees
 - `arc(centerX, centerY, width, height, startAngle, endAngle)`: angles are in degrees
+- `spline(x1, y1, x2, y2, x3, y3 [, …, xn, yn [, smoothness [, isClosed]]])`: optional `smoothness` from 0 to 1 (default: `1`) and optional boolean `isClosed` (default: `false`)
 
 ### Styling
 - `background(color)`
