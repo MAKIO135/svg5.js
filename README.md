@@ -48,19 +48,19 @@ Then, simply draw your elements like a Processing sketch!
 
 ### Shapes
 <details>
-    <summary>`circle(centerX, centerY, radius)`</summary>
+    <summary><code>circle(centerX, centerY, radius)</code></summary>
     <table>
         <tr>
             <td>
                 <img src="img/exemple-circle.png" alt="exemple circle image" width="100%">
             </td>
             <td>
-                createSVG(500, 500)
-                background('grey')
-                stroke('white')
-                noFill()
-                circle(250, 250, 400)
-                render()
+            <pre><code>createSVG(500, 500)
+background('grey')
+stroke('white')
+noFill()
+circle(250, 250, 400)
+render()</code></pre>
             </td>
         </tr>
     </table>
