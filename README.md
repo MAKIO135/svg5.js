@@ -49,14 +49,14 @@ Then, simply draw your elements like a Processing sketch!
 ### Shapes
 <details>
     <summary><code>circle(centerX, centerY, radius)</code></summary>
-        
     <table>
         <tr>
             <td>
-                <img src="img/exemple-circle.png" alt="exemple circle image" width="50%">
+                <svg width="200" height="200"><circle cx="100" cy="100" fill="red" /></svg>
+                <img src="img/exemple-circle.png" alt="exemple circle image" width="100%">
             </td>
             <td>
-            <pre><code>createSVG(500, 500)
+                <pre><code>createSVG(500, 500)
 background('grey')
 stroke('white')
 noFill()
