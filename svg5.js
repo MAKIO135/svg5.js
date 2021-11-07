@@ -8,6 +8,7 @@ const svg5 = {
     _strokeDashArray: [],
     _opacity: 1,
     _transform: [[]],
+    _defs: [],
     _path: [],
     CLOSE: true,
     // Alea: https://github.com/coverslide/node-alea
@@ -24,6 +25,7 @@ const svg5 = {
         svg5.html += `<${type} stroke="${svg5._strokeColor}" stroke-width="${svg5._strokeWidth}" stroke-linecap="${svg5._strokeCap}" stroke-linejoin="${svg5._strokeJoin}"${svg5._strokeDashArray.length ? ` stroke-dasharray="${svg5._strokeDashArray.join(' ')}"` : ''} fill="${svg5._fillColor}" ${params}${svg5._getTransform()}${svg5._opacity !== 1 ? ` opacity="${svg5._opacity}"` : ''} />`
     },
     _addTransform: transform => svg5._transform[svg5._transform.length - 1].push(transform),
+    _addDef: def => svg5._defs.push(def),
     _getTransform: () => svg5._transform[svg5._transform.length - 1].length ? ` transform="${svg5._transform[svg5._transform.length - 1].join(' ')}"` : '',
     _round: n => {
         if (!typeof n === 'number') n = parseFloat(n)
@@ -58,10 +60,11 @@ const createSVG = (w, h) => {
     svg5._strokeDashArray = []
     svg5._opacity = 1
     svg5._transform = [[]]
+    svg5._defs = []
     svg5._path = []
 }
 
-const getHTML = () => `<svg id="${svg5._id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5._round(svg5.width)} ${svg5._round(svg5.height)}" width="${svg5._round(svg5.width)}" height="${svg5._round(svg5.height)}">${svg5.html}</svg>`
+const getHTML = () => `<svg id="${svg5._id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5._round(svg5.width)} ${svg5._round(svg5.height)}" width="${svg5._round(svg5.width)}" height="${svg5._round(svg5.height)}"><defs>${svg5._defs.join("")}</defs>${svg5.html}</svg>`
 
 const render = (parentSelector = 'body') => {
     document.querySelector(parentSelector).innerHTML += getHTML()
@@ -222,6 +225,18 @@ const endGroup = () => {
     svg5.html += `</g>`
 }
 
+// Defs
+const createLinearGradient = (x1, y1, x2, y2, ...steps) => {
+    let id = `linearGradient${svg5._defs.length}`;
+    let def = `<linearGradient id="${id}" x1="${x1}" x2="${x2}" y1="${y1}" y2="${y2}">`;
+    steps.forEach(step =>{
+        def += `<step offset="${step.offset}%" offset-color="${step.color}"/>`;
+    })
+    def += "</linearGradient>";
+    svg5._addDef(def);
+    return id;
+}
+
 // Matrix transformations
 const translate = (x, y) => svg5._addTransform(`translate(${svg5._round(x)}, ${svg5._round(y)})`)
 const rotate = angle => svg5._addTransform(`rotate(${svg5._round(angle)})`)
@@ -298,5 +313,6 @@ if (typeof module !== 'undefined') {
     svg5.scale = scale
     svg5.push = push
     svg5.pop = pop
+    svg5.createLinearGradient = createLinearGradient
     module.exports = svg5
 }
