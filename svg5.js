@@ -226,7 +226,7 @@ const endGroup = () => {
 }
 
 // Defs
-const createLinearGradient = (x1, y1, x2, y2, ...steps) => {
+const createLinearGradient = (x1, y1, x2, y2, steps) => {
     let id = `linearGradient${svg5._defs.length}`;
     let def = `<linearGradient id="${id}" x1="${x1}" x2="${x2}" y1="${y1}" y2="${y2}">`;
     steps.forEach(step =>{
