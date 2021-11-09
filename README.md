@@ -66,6 +66,7 @@ render()</code></pre>
         </tr>
     </table>
 </details>
+
 - `ellipse(centerX, centerY, width, height)`
 - `rect(x, y, width, height)`
 - `square(x, y, width)`
