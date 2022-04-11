@@ -5,7 +5,7 @@ svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, em
 
 ## Example
 ```html
-<script src="https://cdn.jsdelivr.net/gh/MAKIO135/svg5.js/svg5.min.js"></script>
+<script src="https://unpkg.com/svg5/svg5.min.js"></script>
 <script>
     // Create an SVG element
     createSVG(500, 500)
