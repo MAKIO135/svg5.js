@@ -35,6 +35,8 @@ More examples here:
 - https://editor.p5js.org/makio135/sketches/J13KRFIJM
 - https://editor.p5js.org/makio135/sketches/OazqbYiMn
 
+Bonus: hatched shapes using the Polygon class from https://observablehq.com/@makio135/utilities  
+https://editor.p5js.org/makio135/sketches/VHsFuHzRb
 
 ## Documentation
 Start by creating an SVG element using the `createSVG` function:
