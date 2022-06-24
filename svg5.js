@@ -299,5 +299,5 @@ if (typeof module !== 'undefined') {
     svg5.push = push
     svg5.pop = pop
     svg5.save = save
-    export default { svg5 }
+    module.exports = svg5
 }
