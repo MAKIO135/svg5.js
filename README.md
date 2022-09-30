@@ -89,6 +89,8 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `bezierVertex(x1, y1, x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/bezierVertex)
 - `cubicVertex(x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/cubicVertex)
 - `quadraticVertex(x1, y1, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/quadraticVertex)
+- `lineTo(x, y)`
+- `moveTo(x, y)`
 - `endShape([CLOSE])` [See doc on p5js](https://p5js.org/reference/#/p5/endShape)
 
 ### Groups

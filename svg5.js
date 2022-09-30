@@ -186,7 +186,9 @@ const spline = (...pts) => {
 
 // Vertex shapes
 const beginShape = () => svg5._path = []
-const vertex = (x, y) => svg5._path.push(`${svg5._path.length == 0 ? 'M' : 'L'}${svg5._round(x)},${svg5._round(y)}`)
+const lineTo = (x, y) => svg5._path.push(`L${svg5._round(x)},${svg5._round(y)}`)
+const moveTo = (x, y) => svg5._path.push(`M${svg5._round(x)},${svg5._round(y)}`)
+const vertex = (x, y) => svg5._path.length == 0 ? moveTo(x, y) : lineTo(x, y)
 const bezierVertex = (x1, y1, x2, y2, x, y) => svg5._path.push(`C ${svg5._round(x1)} ${svg5._round(y1)}, ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5._round(y)}`)
 const cubicVertex = (x2, y2, x, y) => svg5._path.push(`S ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5._round(y)}`)
 const quadraticVertex = (x1, y1, x, y) => svg5._path.push(`Q ${svg5._round(x1)} ${svg5._round(y1)}, ${svg5._round(x)} ${svg5._round(y)}`)
@@ -273,6 +275,8 @@ if (typeof module !== 'undefined') {
     svg5.arc = arc
     svg5.spline = spline
     svg5.beginShape = beginShape
+    svg5.moveTo = moveTo
+    svg5.lineTo = lineTo
     svg5.vertex = vertex
     svg5.bezierVertex = bezierVertex
     svg5.cubicVertex = cubicVertex
