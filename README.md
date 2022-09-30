@@ -69,10 +69,10 @@ Then, simply draw your elements like a Processing sketch!
 - `fill(color)`, 
 - `noFill()`
 - `stroke(color)`
-- `strokeWidth(n)` 
+- `strokeWidth(n)` specifies the width in pixels of the stroke
 - `strokeWeight(n)` alias for `strokeWidth` to keep p5js naming.
-- `strokeCap(style)`
-- `strokeJoin(style)`
+- `strokeCap(style)` style can be either `butt`, `square` or `round`
+- `strokeJoin(style)` style can be either `miter`, `round` or `bevel`
 - `strokeDashArray(n1, n2 [, …, n])`
 - `noStroke()`
 
