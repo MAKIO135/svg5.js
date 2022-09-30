@@ -128,8 +128,15 @@ You can specify a CSS selector as third parameter to let the library know where 
 - `save()`
 
 ### SVG helpers
-- `precision(n)` set the number of digits wanted after floating point
+- `precision(n)` sets the number of digits wanted after floating point
 - `getHTML()` returns the SVG as an HTML String
+
+### Custom methods for modularity
+- `addStyle` creates a `<style>` element and adds content to it
+- `addDef` creates a `<defs>` element and adds content to it
+- `setAttribute`
+- `removeAttribute`
+- `clearAttributes`
 
 ## NPM
 svg5 is also available on NPM: `npm i svg5`
