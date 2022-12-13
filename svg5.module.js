@@ -1,5 +1,9 @@
 const svg5 = {
     html: '',
+    _defs: [],
+    _attributes: '',
+    _attrRegex: name => new RegExp(`\\s${name}\\=\\"[^"]*\\"`, 'g'),
+    _styles: [],
     _fillColor: 'white',
     _strokeColor: 'black',
     _strokeWidth: 1,
@@ -21,7 +25,7 @@ const svg5 = {
         return new SimplexNoise(seed)
     },
     _addElement: (type, params) => {
-        svg5.html += `<${type} stroke="${svg5._strokeColor}" stroke-width="${svg5._strokeWidth}" stroke-linecap="${svg5._strokeCap}" stroke-linejoin="${svg5._strokeJoin}"${svg5._strokeDashArray.length ? ` stroke-dasharray="${svg5._strokeDashArray.join(' ')}"` : ''} fill="${svg5._fillColor}" ${params}${svg5._getTransform()}${svg5._opacity !== 1 ? ` opacity="${svg5._opacity}"` : ''} />`
+        svg5.html += `<${type} stroke="${svg5._strokeColor}" stroke-width="${svg5._strokeWidth}" stroke-linecap="${svg5._strokeCap}" stroke-linejoin="${svg5._strokeJoin}"${svg5._strokeDashArray.length ? ` stroke-dasharray="${svg5._strokeDashArray.join(' ')}"` : ''} fill="${svg5._fillColor}" ${params}${svg5._getTransform()}${svg5._opacity !== 1 ? ` opacity="${svg5._opacity}"` : ''}${svg5._attributes} />`
     },
     _addTransform: transform => svg5._transform[svg5._transform.length - 1].push(transform),
     _getTransform: () => svg5._transform[svg5._transform.length - 1].length ? ` transform="${svg5._transform[svg5._transform.length - 1].join(' ')}"` : '',
@@ -61,7 +65,7 @@ const createSVG = (w, h) => {
     svg5._path = []
 }
 
-const getHTML = () => `<svg id="${svg5._id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5._round(svg5.width)} ${svg5._round(svg5.height)}" width="${svg5._round(svg5.width)}" height="${svg5._round(svg5.height)}">${svg5.html}</svg>`
+const getHTML = () => `<svg id="${svg5._id}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${svg5._round(svg5.width)} ${svg5._round(svg5.height)}" width="${svg5._round(svg5.width)}" height="${svg5._round(svg5.height)}">${svg5._styles.length ? `<style>${svg5._styles.join(' ')}</style>` : ''}${svg5._defs.length ? `<defs>${svg5._defs.join(' ')}</defs>` : ''}${svg5.html}</svg>`
 
 const render = (parentSelector = 'body') => {
     document.querySelector(parentSelector).innerHTML += getHTML()
@@ -73,6 +77,13 @@ const render = (parentSelector = 'body') => {
 }
 
 const precision = n => svg5._precision = Math.max(0, ~~n)
+
+// add content to <style>…</style>
+const addStyle = style => svg5._styles.push(typeof style === 'string' ? style : style.toString())
+
+// add content to <defs>…</defs>
+const addDef = def => svg5._defs.push(typeof def === 'string' ? def : def.toString())
+
 
 // Styling
 const clear = () => svg5.html = ''
@@ -87,6 +98,11 @@ const strokeCap = type => svg5._strokeCap = type
 const strokeJoin = type => svg5._strokeJoin = type
 const strokeDashArray = (...values) => svg5._strokeDashArray = values
 const noStroke = () => svg5._strokeColor = 'none'
+
+const setAttribute = (name, value) => svg5._attributes.match(svg5._attrRegex(name)) ? svg5._attributes = svg5._attributes.replace(svg5._attrRegex(name), ` ${name}="${value}"`) : svg5._attributes += ` ${name}="${value}"`
+const removeAttribute = name => svg5._attributes = svg5._attributes.replace(svg5._attrRegex(name), '')
+const clearAttributes = () => svg5._attributes = ''
+
 
 // Shapes
 const circle = (cx, cy, diameter) => svg5._addElement('circle', `cx="${svg5._round(cx)}" cy="${svg5._round(cy)}" r="${svg5._round(diameter/2)}"`)
@@ -186,7 +202,9 @@ const spline = (...pts) => {
 
 // Vertex shapes
 const beginShape = () => svg5._path = []
-const vertex = (x, y) => svg5._path.push(`${svg5._path.length == 0 ? 'M' : 'L'}${svg5._round(x)},${svg5._round(y)}`)
+const lineTo = (x, y) => svg5._path.push(`L${svg5._round(x)},${svg5._round(y)}`)
+const moveTo = (x, y) => svg5._path.push(`M${svg5._round(x)},${svg5._round(y)}`)
+const vertex = (x, y) => svg5._path.length == 0 ? moveTo(x, y) : lineTo(x, y)
 const bezierVertex = (x1, y1, x2, y2, x, y) => svg5._path.push(`C ${svg5._round(x1)} ${svg5._round(y1)}, ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5._round(y)}`)
 const cubicVertex = (x2, y2, x, y) => svg5._path.push(`S ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5._round(y)}`)
 const quadraticVertex = (x1, y1, x, y) => svg5._path.push(`Q ${svg5._round(x1)} ${svg5._round(y1)}, ${svg5._round(x)} ${svg5._round(y)}`)
@@ -200,9 +218,12 @@ const radians = degrees =>  degrees / 360 * (Math.PI * 2)
 const degrees = radians =>  radians / (Math.PI * 2) * 360
 const randomSeed = seed => svg5._prng = svg5._initAlea(seed)
 const random = (a, b) => {
-    if (a.length) return a[Math.random() * a.length | 0]
+    if (a === undefined) return svg5._prng()
+    if (a.length) return a[svg5._prng() * a.length | 0]
     else return (b || b === 0) ? a + svg5._prng() * (b - a) : svg5._prng() * a
 }
+const randInt = (a, b) => random(a, b) | 0
+const randBool = (threshold = .5) => random() < threshold
 const noiseSeed = seed => svg5._simplex = svg5._initSimplexNoise(seed)
 const noise1D = x => svg5._simplex.noise2D(x, 0)
 const noise2D = (x, y) => svg5._simplex.noise2D(x, y)
@@ -245,6 +266,8 @@ svg5.createSVG = createSVG
 svg5.getHTML = getHTML
 svg5.render = render
 svg5.precision = precision
+svg5.addStyle = addStyle
+svg5.addDef = addDef
 svg5.clear = clear
 svg5.background = background
 svg5.opacity = opacity
@@ -257,6 +280,9 @@ svg5.strokeCap = strokeCap
 svg5.strokeJoin = strokeJoin
 svg5.strokeDashArray = strokeDashArray
 svg5.noStroke = noStroke
+svg5.setAttribute = setAttribute
+svg5.removeAttribute = removeAttribute
+svg5.clearAttributes = clearAttributes
 svg5.circle = circle
 svg5.ellipse = ellipse
 svg5.rect = rect
@@ -271,6 +297,8 @@ svg5.regularPolygon = regularPolygon
 svg5.arc = arc
 svg5.spline = spline
 svg5.beginShape = beginShape
+svg5.moveTo = moveTo
+svg5.lineTo = lineTo
 svg5.vertex = vertex
 svg5.bezierVertex = bezierVertex
 svg5.cubicVertex = cubicVertex
@@ -285,6 +313,8 @@ svg5.radians = radians
 svg5.degrees = degrees
 svg5.randomSeed = randomSeed
 svg5.random = random
+svg5.randInt = randInt
+svg5.randBool = randBool
 svg5.noiseSeed = noiseSeed
 svg5.noise1D = noise1D
 svg5.noise2D = noise2D

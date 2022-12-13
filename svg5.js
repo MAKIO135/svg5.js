@@ -218,9 +218,12 @@ const radians = degrees =>  degrees / 360 * (Math.PI * 2)
 const degrees = radians =>  radians / (Math.PI * 2) * 360
 const randomSeed = seed => svg5._prng = svg5._initAlea(seed)
 const random = (a, b) => {
+    if (a === undefined) return svg5._prng()
     if (a.length) return a[svg5._prng() * a.length | 0]
     else return (b || b === 0) ? a + svg5._prng() * (b - a) : svg5._prng() * a
 }
+const randInt = (a, b) => random(a, b) | 0
+const randBool = (threshold = .5) => random() < threshold
 const noiseSeed = seed => svg5._simplex = svg5._initSimplexNoise(seed)
 const noise1D = x => svg5._simplex.noise2D(x, 0)
 const noise2D = (x, y) => svg5._simplex.noise2D(x, y)
@@ -312,6 +315,8 @@ if (typeof module !== 'undefined') {
     svg5.degrees = degrees
     svg5.randomSeed = randomSeed
     svg5.random = random
+    svg5.randInt = randInt
+    svg5.randBool = randBool
     svg5.noiseSeed = noiseSeed
     svg5.noise1D = noise1D
     svg5.noise2D = noise2D
