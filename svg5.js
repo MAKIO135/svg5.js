@@ -107,8 +107,8 @@ const clearAttributes = () => svg5._attributes = ''
 // Shapes
 const circle = (cx, cy, diameter) => svg5._addElement('circle', `cx="${svg5._round(cx)}" cy="${svg5._round(cy)}" r="${svg5._round(diameter/2)}"`)
 const ellipse = (cx, cy, w, h) => svg5._addElement('ellipse', `cx="${svg5._round(cx)}" cy="${svg5._round(cy)}" rx="${svg5._round(w/2)}" ry="${svg5._round(h/2)}"`)
-const rect = (x, y, w, h) => svg5._addElement('rect', `x="${svg5._round(x)}" y="${svg5._round(y)}" width="${svg5._round(w)}" height="${svg5._round(h)}"`)
-const square = (x, y, w) => rect(x, y, w, w)
+const rect = (x, y, w, h, rx, ry) => svg5._addElement('rect', `x="${svg5._round(x)}" y="${svg5._round(y)}" width="${svg5._round(w)}" height="${svg5._round(h)}"${rx !== undefined ? ` rx="${svg5._round(rx)}"` : ''}${ry !== undefined ? ` ry="${svg5._round(ry)}"` : ''}`)
+const square = (x, y, w, rx, ry) => rect(x, y, w, w, rx, ry)
 const point = (x, y) => rect(x, y, 1, 1)
 const polyline = (...pts) => svg5._addElement('polyline', `points="${pts.map(svg5._round).join(' ')}"`)
 const line = (x1, y1, x2, y2) => polyline(x1, y1, x2, y2)
