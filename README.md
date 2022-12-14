@@ -103,7 +103,9 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `constrain(value, min, max)` constrains a value between a minimum and maximum value.
 - `radians(degrees)` converts a value in degrees to radians.
 - `degrees(radians)` converts a value in radians to degrees.
-- `random()` random(max), random(min, max) or random(array).
+- `random([a, b])` random(), random(max), random(min, max) or random(array).
+- `randInt(a[, b])` randInt(max) or randInt(min, max).
+- `randBool([threshold])` threshold between 0 and 1; returns true if < threshold, else false.
 - `randomSeed(seed)` sets the seed value for random().
 - `noise1D(x)` computes a value using simplex noise 1D.
 - `noise2D(x, y)` computes a value using simplex noise 2D.
