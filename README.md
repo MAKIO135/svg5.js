@@ -5,7 +5,7 @@ svg5 is a tiny JS library to generate static SVGs for plotters, lasercutting, em
 
 ## Example
 ```html
-<script src="https://cdn.jsdelivr.net/gh/MAKIO135/svg5.js/svg5.min.js"></script>
+<script src="https://unpkg.com/svg5/svg5.min.js"></script>
 <script>
     // Create an SVG element
     createSVG(500, 500)
@@ -35,6 +35,8 @@ More examples here:
 - https://editor.p5js.org/makio135/sketches/J13KRFIJM
 - https://editor.p5js.org/makio135/sketches/OazqbYiMn
 
+Bonus: hatched shapes using the Polygon class from https://observablehq.com/@makio135/utilities  
+https://editor.p5js.org/makio135/sketches/VHsFuHzRb
 
 ## Documentation
 Start by creating an SVG element using the `createSVG` function:
@@ -67,6 +69,7 @@ render()</code></pre>
     </table>
 </details>
 
+- `circle(centerX, centerY, radius)`
 - `ellipse(centerX, centerY, width, height)`
 - `rect(x, y, width, height)`
 - `square(x, y, width)`
@@ -86,10 +89,10 @@ render()</code></pre>
 - `fill(color)`, 
 - `noFill()`
 - `stroke(color)`
-- `strokeWidth(n)` 
+- `strokeWidth(n)` specifies the width in pixels of the stroke
 - `strokeWeight(n)` alias for `strokeWidth` to keep p5js naming.
-- `strokeCap(style)`
-- `strokeJoin(style)`
+- `strokeCap(style)` style can be either `butt`, `square` or `round`
+- `strokeJoin(style)` style can be either `miter`, `round` or `bevel`
 - `strokeDashArray(n1, n2 [, …, n])`
 - `noStroke()`
 
@@ -106,6 +109,8 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `bezierVertex(x1, y1, x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/bezierVertex)
 - `cubicVertex(x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/cubicVertex)
 - `quadraticVertex(x1, y1, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/quadraticVertex)
+- `lineTo(x, y)`
+- `moveTo(x, y)`
 - `endShape([CLOSE])` [See doc on p5js](https://p5js.org/reference/#/p5/endShape)
 
 ### Groups
@@ -143,8 +148,15 @@ You can specify a CSS selector as third parameter to let the library know where 
 - `save()`
 
 ### SVG helpers
-- `precision(n)` set the number of digits wanted after floating point
+- `precision(n)` sets the number of digits wanted after floating point
 - `getHTML()` returns the SVG as an HTML String
+
+### Custom methods for modularity
+- `addStyle` creates a `<style>` element and adds content to it
+- `addDef` creates a `<defs>` element and adds content to it
+- `setAttribute`
+- `removeAttribute`
+- `clearAttributes`
 
 ## NPM
 svg5 is also available on NPM: `npm i svg5`
