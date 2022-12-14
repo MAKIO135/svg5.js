@@ -35,7 +35,7 @@ const svg5 = {
     },
     _parseColor: function(a, b, c, d) {
         if(typeof arguments[0] === 'string') return arguments[0]
-        
+
         return arguments.length === 1 ? `rgb(${svg5._round(a)}, ${svg5._round(a)}, ${svg5._round(a)})` : // single grey value from 0 to 255
         arguments.length === 2 ? `rgba(${svg5._round(a)}, ${svg5._round(a)}, ${svg5._round(a)}, ${(b / 255).toFixed(3)})` : // grey, alpha from 0 to 255
         arguments.length === 3 ? `rgb(${svg5._round(a)}, ${svg5._round(b)}, ${svg5._round(c)})` : // r,g,b values from 0 to 255
@@ -49,8 +49,9 @@ svg5._simplex = svg5._initSimplexNoise(svg5._prng)
 let width, height
 const CLOSE = true
 
-const createSVG = (w, h) => {
+const createSVG = (w, h, name) => {
     svg5._id = `svg5_${Date.now()}`
+    svg5._name = name || `svg5_${Date.now()}`
     width = svg5.width = w
     height = svg5.height = h
     svg5.html = ''
@@ -126,7 +127,7 @@ const regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
 }
 const arc = (cx, cy, w, h, a1, a2) => {
     if(Math.abs(a1-a2) >= 360) return ellipse(cx, cy, a1, a2)
-    
+
     const _a1 = radians(a1)
     const _a2 = radians(a2)
     const rw = svg5._round(w / 2)
@@ -139,7 +140,7 @@ const arc = (cx, cy, w, h, a1, a2) => {
         x: svg5._round(cx + Math.cos(_a2) * rw),
         y: svg5._round(cy + Math.sin(_a2) * rh)
     }
-    
+
     svg5._addElement('path', `d="M ${p1.x} ${p1.y} A ${rw} ${rh} 0 ${Math.abs(a2 - a1) > 180 ? 1 : 0} ${a2 < a1 ? 0 : 1} ${p2.x} ${p2.y}"`)
 }
 const spline = (...pts) => {
@@ -153,23 +154,23 @@ const spline = (...pts) => {
         isClosed = pts.pop()
         smoothness = pts.pop()
     }
-    
+
     pts = pts.reduce((acc, curr, i) => {
         if(!acc[i/2|0]) acc[i/2|0] = {}
         acc[i/2|0][['x', 'y'][i%2]] = curr
         return acc
     }, [])
-    
+
     const centers = []
     for(let i = 0; i < pts.length - (isClosed ? 0 : 1); i++) {
         const {x: x1, y: y1} = pts[i % pts.length]
         const {x: x2, y: y2} = pts[(i + 1) % pts.length]
         centers[i % pts.length] = {
-            x: (x1 + x2) / 2, 
+            x: (x1 + x2) / 2,
             y: (y1 + y2) / 2
         }
     }
-    
+
     const ctrls = isClosed ? [] : [[pts[0], pts[0]]]
     for(let i = isClosed ? 0 : 1; i < centers.length; i++) {
         const pt = pts[i]
@@ -177,7 +178,7 @@ const spline = (...pts) => {
         const c1 = centers[i]
         const dx = (c0.x - c1.x) / 2
         const dy = (c0.y - c1.y) / 2
-        
+
         ctrls[i] = [
             {
                 x: pt.x + smoothness * dx,
@@ -189,10 +190,10 @@ const spline = (...pts) => {
             }
         ]
     }
-    
+
     if(!isClosed) {
         ctrls.push([
-            pts[pts.length - 1], 
+            pts[pts.length - 1],
             pts[pts.length - 1]
         ])
     }
@@ -229,7 +230,7 @@ const noise1D = x => svg5._simplex.noise2D(x, 0)
 const noise2D = (x, y) => svg5._simplex.noise2D(x, y)
 const noise3D = (x, y, z) => svg5._simplex.noise3D(x, y, z)
 const noise4D = (x, y, z, w) => svg5._simplex.noise4D(x, y, z, w)
-const noise = function() { 
+const noise = function() {
     return svg5._simplex[`noise${constrain(arguments.length, 1, 4)}D`](...arguments)
 }
 
@@ -256,7 +257,7 @@ const save = () => {
     const svgUrl = URL.createObjectURL(svgBlob)
     const downloadLink = document.createElement('a')
     downloadLink.href = svgUrl
-    downloadLink.download = `${svg5._id}.svg`
+    downloadLink.download = `${svg5._name}.svg`
     document.body.appendChild(downloadLink)
     downloadLink.click()
     document.body.removeChild(downloadLink)
