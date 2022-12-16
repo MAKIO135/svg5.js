@@ -49,7 +49,7 @@ Then, simply draw your elements like a Processing sketch!
 - `CLOSE`: used to specify if a path should be closed.
 
 ### Shapes
-- `circle(centerX, centerY, radius)`
+- `circle(centerX, centerY, diameter)`
 - `ellipse(centerX, centerY, width, height)`
 - `rect(x, y, width, height[, rx, ry])`
 - `square(x, y, width)`
