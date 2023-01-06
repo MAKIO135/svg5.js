@@ -40,8 +40,13 @@ https://editor.p5js.org/makio135/sketches/VHsFuHzRb
 
 ## Documentation
 Start by creating an SVG element using the `createSVG` function:
-- `createSVG(width, height)`
-Then, simply draw your elements like a Processing sketch!
+<details>
+<summary><code>createSVG(width, height [, name])</code></summary>
+<code>name</code> is an optional parameter used to name the downloaded SVG file
+</details>
+Then, simply draw your elements like a Processing sketch!  
+Finally display the result with `render()`.
+
 
 ### Global variables
 - `width`: width of the SVG.
@@ -51,7 +56,7 @@ Then, simply draw your elements like a Processing sketch!
 ### Shapes
 - `circle(centerX, centerY, diameter)`
 - `ellipse(centerX, centerY, width, height)`
-- `rect(x, y, width, height[, rx, ry])`
+- `rect(x, y, width, height [, rx, ry])`
 - `square(x, y, width)`
 - `line(x1, y1, x2, y2)`
 - `polyline(x1, y1, x2, y2, x3, y3 [, …, xn, yn])`
@@ -162,3 +167,5 @@ Jonas Wagner](https://github.com/jwagner) and [Alea](https://github.com/coversli
 
 ## License
 Copyright (c) 2020 Lionel RADISSON, licensed under the MIT License (enclosed)
+
+CLOSE,CORNER,CENTER,createSVG,getHTML,render,precision,addStyle,addDef,clear,background,opacity,fill,noFill,stroke,strokeWidth,strokeWeight,strokeCap,strokeJoin,strokeDashArray,noStroke,setAttribute,removeAttribute,clearAttributes,ellipseMode,circle,ellipse,rectMode,rect,square,point,polyline,line,polygon,triangle,quad,regularPolygon,arc,spline,beginShape,lineTo,moveTo,vertex,bezierVertex,cubicVertex,quadraticVertex,endShape,PI,TAU,lerp,norm,map,constrain,radians,degrees,randomSeed,random,randInt,randBool,expRand,noiseSeed,noise1D,noise2D,noise3D,noise4D,noise,beginGroup,endGroup,translate,rotate,scale,push,pop,save,exportPNG,width,height,html
