@@ -56,6 +56,9 @@ svg5.createSVG = (w = 100, h = 100, name) => {
     svg5._opacity = 1
     svg5._transform = [[]]
     svg5._path = []
+    svg5._pathIsCurve = false // used for curveVertex
+    svg5._pathCurvePts = [] // used for curveVertex
+    svg5._curveTightness = 1 // used for curveVertex
     svg5._rectMode = 1
     svg5._ellipseMode = 2
     svg5._precision = undefined
@@ -235,7 +238,19 @@ svg5.bezierVertex = (x1, y1, x2, y2, x, y) => svg5._path.push(`C ${svg5._round(x
 svg5.cubicVertex = (x2, y2, x, y) => svg5._path.push(`S ${svg5._round(x2)} ${svg5._round(y2)}, ${svg5._round(x)} ${svg5._round(y)}`)
 svg5.quadraticVertex = (x1, y1, x, y) => svg5._path.push(`Q ${svg5._round(x1)} ${svg5._round(y1)}, ${svg5._round(x)} ${svg5._round(y)}`)
 svg5.arcVertex = (rx, ry, xAxisRotation, largeArcFlag, sweepFlag, x, y) => svg5._path.push(`A ${rx} ${ry} ${xAxisRotation} ${largeArcFlag} ${sweepFlag} ${x} ${y}`)
-svg5.endShape = closed => svg5._addElement('path', `d="${svg5._path.join(' ')}${closed ? ' Z' : ''}"`)
+svg5.curveTightness = n => svg5._curveTightness = n
+svg5.curveVertex = (x, y) => {
+    svg5._pathIsCurve = true
+    svg5._pathCurvePts.push([x, y])
+}
+svg5.endShape = closed => {
+    if(svg5._pathIsCurve) {
+        svg5.spline(...svg5._pathCurvePts.flat(), svg5._curveTightness, closed)
+        svg5._pathCurvePts = []
+        svg5._pathIsCurve = false
+    }
+    else svg5._addElement('path', `d="${svg5._path.join(' ')}${closed ? ' Z' : ''}"`)
+}
 svg5.beginPath = svg5.beginShape
 svg5.endPath = svg5.endShape
 
