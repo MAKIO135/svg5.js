@@ -131,7 +131,6 @@ svg5.rectMode = mode => svg5._rectMode = mode
 svg5.rect = (x, y, w, h, rx, ry) => svg5._addElement('rect', `x="${svg5._round(svg5._rectMode === svg5.CENTER ? x - w/2 : x)}" y="${svg5._round(svg5._rectMode === svg5.CENTER ? y - h/2 : y)}" width="${svg5._round(w)}" height="${svg5._round(h)}"${rx !== undefined ? ` rx="${svg5._round(rx)}"` : ''}${ry !== undefined ? ` ry="${svg5._round(ry)}"` : ''}`)
 svg5.square = (x, y, w, rx, ry) => svg5.rect(x, y, w, w, rx, ry)
 svg5.point = (x, y) => svg5.line(x, y, x, y)
-// svg5.point = (x, y) => svg5.circle(x, y, 1)
 svg5.polyline = (...pts) => svg5._addElement('polyline', `points="${pts.map(svg5._round).join(' ')}"`)
 svg5.line = (x1, y1, x2, y2) => svg5._addElement('line', `x1="${svg5._round(x1)}" y1="${svg5._round(y1)}" x2="${svg5._round(x2)}" y2="${svg5._round(y2)}"`) 
 svg5.polygon = (...pts) => svg5._addElement('polygon', `points="${pts.map(svg5._round).join(' ')}"`)
