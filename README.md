@@ -94,15 +94,19 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 - `bezierVertex(x1, y1, x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/bezierVertex)
 - `cubicVertex(x2, y2, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/cubicVertex)
 - `quadraticVertex(x1, y1, x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/quadraticVertex)
+- `curveVertex(x, y)` [See doc on p5js](https://p5js.org/reference/#/p5/curveVertex)
 - `lineTo(x, y)`
 - `moveTo(x, y)`
 - `endShape([CLOSE])` [See doc on p5js](https://p5js.org/reference/#/p5/endShape)
+- `curveTightness(n)` [See doc on p5js](https://p5js.org/reference/#/p5/curveTightness)
 
 ### Groups
 - `beginGroup()` starts an SVG group `<g>`. Transformations are added to the group (-> cleaner SVG).
 - `endGroup()` closes an SVG group `</g>`
 
 ### Math helpers
+- `PI`
+- `TAU` (equals `2 * PI`)
 - `lerp(a, b, t)` calculates value between `a` and `b` at a specific increment between 0 and 1.
 - `map(n, start1, end1, start2, end2)` re-maps a number from one range to another.
 - `constrain(value, min, max)` constrains a value between a minimum and maximum value.
