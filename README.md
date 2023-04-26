@@ -171,5 +171,3 @@ Jonas Wagner](https://github.com/jwagner) and [Alea](https://github.com/coversli
 
 ## License
 Copyright (c) 2020 Lionel RADISSON, licensed under the MIT License (enclosed)
-
-CLOSE,CORNER,CENTER,createSVG,getHTML,render,precision,addStyle,addDef,clear,background,opacity,fill,noFill,stroke,strokeWidth,strokeWeight,strokeCap,strokeJoin,strokeDashArray,noStroke,setAttribute,removeAttribute,clearAttributes,ellipseMode,circle,ellipse,rectMode,rect,square,point,polyline,line,polygon,triangle,quad,regularPolygon,arc,spline,beginShape,lineTo,moveTo,vertex,bezierVertex,cubicVertex,quadraticVertex,endShape,PI,TAU,lerp,norm,map,constrain,radians,degrees,randomSeed,random,randInt,randBool,expRand,noiseSeed,noise1D,noise2D,noise3D,noise4D,noise,beginGroup,endGroup,translate,rotate,scale,push,pop,save,exportPNG,width,height,html
