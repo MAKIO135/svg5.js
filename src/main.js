@@ -147,7 +147,7 @@ svg5.regularPolygon = (cx, cy, nbPoints, radius, angle = 0) => {
     svg5.polygon(...pts)
 }
 svg5.arc = (cx, cy, w, h, a1, a2) => {
-    if(Math.abs(a1-a2) >= 360) return svg5.ellipse(cx, cy, a1, a2)
+    if(Math.abs(a1-a2) >= 360) return svg5.ellipse(cx, cy, w, h)
 
     if(svg5._ellipseMode === svg5.CORNER) {
         cx = cx + w/2
