@@ -332,7 +332,7 @@ svg5.noise = function() {
 }
 
 
-// Group
+// Groups
 svg5.beginGroup = () => {
     svg5.html += `<g${svg5._getTransform()}${svg5._attributes}${svg5._opacity !== 1 ? ` opacity="${svg5._opacity}"`: ''}>`
     svg5._transform.push([])
@@ -342,7 +342,7 @@ svg5.endGroup = () => {
     svg5.html += `</g>`
 }
 
-// Matrix transformations
+// Transformations
 svg5.translate = (x, y) => svg5._addTransform(`translate(${svg5._round(x)}, ${svg5._round(y)})`)
 svg5.rotate = angle => svg5._addTransform(`rotate(${svg5._round(angle)})`)
 svg5.scale = (x, y) => svg5._addTransform(y ? `scale(${svg5._round(x)}, ${svg5._round(y)})` : `scale(${svg5._round(x)})`)
