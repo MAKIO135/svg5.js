@@ -114,8 +114,7 @@ svg5.opacity = n => svg5._opacity = n
 svg5.fill = (...args) => svg5._fillColor = svg5._parseColor(...args)
 svg5.noFill = () => svg5._fillColor = 'none'
 svg5.stroke = (...args) => svg5._strokeColor = svg5._parseColor(...args)
-svg5.strokeWidth = n => svg5._strokeWidth = n
-svg5.strokeWeight = svg5.strokeWidth // alias for strokeWidth
+svg5.strokeWeight = svg5.strokeWidth = n => svg5._strokeWidth = n
 svg5.strokeCap = type => svg5._strokeCap = type
 svg5.strokeJoin = type => svg5._strokeJoin = type
 svg5.strokeDashArray = (...values) => svg5._strokeDashArray = values
