@@ -74,8 +74,7 @@ Finally display the result with `render()`.
 - `fill(color)`, 
 - `noFill()`
 - `stroke(color)`
-- `strokeWidth(n)` specifies the width in pixels of the stroke
-- `strokeWeight(n)` alias for `strokeWidth` to keep p5js naming.
+- `strokeWidth(n)` specifies the width in pixels of the stroke (alias `strokeWeight`)
 - `strokeCap(style)` style can be either `butt`, `square` or `round`
 - `strokeJoin(style)` style can be either `miter`, `round` or `bevel`
 - `strokeDashArray(n1, n2 [, …, n])`
@@ -107,9 +106,11 @@ The `color` parameter for `background`, `fill` and `stroke` functions can be pas
 ### Math helpers
 - `PI`
 - `TAU` (equals `2 * PI`)
+- `goldenRatio` 
 - `lerp(a, b, t)` calculates value between `a` and `b` at a specific increment between 0 and 1.
+- `inverseLerp(a, b, t)` calculates value between `a` and `b` at a specific increment between 0 and 1.
 - `map(n, start1, end1, start2, end2)` re-maps a number from one range to another.
-- `constrain(value, min, max)` constrains a value between a minimum and maximum value.
+- `constrain(value, min, max)` constrains a value between a minimum and maximum value. (alias: `clamp`)
 - `radians(degrees)` converts a value in degrees to radians.
 - `degrees(radians)` converts a value in radians to degrees.
 - `random([a, b])` random(), random(max), random(min, max) or random(array).

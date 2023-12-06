@@ -34,9 +34,7 @@ const tests = {
     _name: () => {},
     _id: () => {},
 
-    createSVG: () => {
-
-    },
+    createSVG: () => {},
     getHTML: () => {},
     render: () => {},
     precision: () => {},

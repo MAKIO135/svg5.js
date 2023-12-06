@@ -253,6 +253,26 @@ svg5.endShape = closed => {
 svg5.beginPath = svg5.beginShape
 svg5.endPath = svg5.endShape
 
+// Arrays
+svg5.array = n => {
+    let A = new Array(n) 
+    for (let i = 0; i < n; i++) A[i] = i
+    return A
+}
+svg5.range = (start, end, step = 1) => {
+    const n = -~((end - start) / step), A = new Array(n)
+    for (let i = 0, k = start; i < n; i++, k += step) A[i] = k
+    return A
+}
+svg5.cut = (a, b, n) => svg5.array(n).map(i => svg5.lerp(a, b, i/(n - 1)))
+svg5.shiftRight = (arr, n = 1) => {
+    const m = arr.length, copy = new Array(m)
+    n = ((n % m) + m) % m
+    for (let i = 0, k = m-n; k < m;) copy[i++] = arr[k++]
+    for (let i = n, k = 0; k < m-n;) copy[i++] = arr[k++]
+    return copy
+}
+svg5.shiftLeft = (arr, n = 1) => svg5.shiftRight(arr, -n)
 
 // Math helpers
 svg5.PI = Math.PI
@@ -300,12 +320,27 @@ svg5.sqrt = Math.sqrt
 svg5.tan = Math.tan
 svg5.tanh = Math.tanh
 svg5.trunc = Math.trunc
-svg5.lerp = (a, b, t) => a * (1 - t) + b * t
-svg5.norm = (n, a, b) => (n - a) / (b - a)
-svg5.map = (n, a, b, c, d) => svg5.lerp(c, d, svg5.norm(n, a, b))
-svg5.constrain = (a, min, max) => a < min ? min : a > max ? max : a
+svg5.goldenRatio = (1 + 5 ** .5) / 2
+svg5.clamp = svg5.constrain = (a, min, max) => a < min ? min : a > max ? max : a
+svg5.lerp = (a, b, amount, clamped = false) => {
+    const t = !clamped ? amount : svg5.clamp(amount, 0, 1)
+    return a * (1 - t) + b * t
+}
+svg5.norm = svg5.normalize = svg5.inverseLerp = (a, b, value, clamped = false) => {
+    let out = (value - a) / (b - a)
+    return !clamped ? out : svg5.clamp(out, 0, 1)
+}
+svg5.mix = (a, b, amount) => { // lerp for arrays
+    if (a.length === b.length) return a.map((d, i) => lerp(a[i], b[i], amount))
+    throw new Error('lengths do not match')
+}
+svg5.map = (n, a, b, c, d, clamped = false) => svg5.lerp(c, d, svg5.norm(a, b, n, clamped))
 svg5.radians = degrees => degrees / 360 * svg5.TAU
 svg5.degrees = radians => radians / svg5.TAU * 360
+svg5.sqDist = (x1, y1, x2, y2) => (x1 - x2) ** 2 + (y1 - y2) ** 2
+svg5.dist = svg5.distance = (x1, y1, x2, y2) => svg5.sqDist(x1, y1, x2, y2) ** .5
+svg5.manhattanDist = (x1, y1, x2, y2) => Math.abs(x1 - x2) + Math.abs(y1 - y2)
+svg5.modularDist = (value, mod) => Math.abs(value - mod * Math.round(value/mod))
 
 // Randomness
 svg5.randomSeed = seed => svg5._prng = svg5._initAlea(seed)
@@ -320,6 +355,21 @@ svg5.expRand = (a, b, p = 2) => {
     if (a === undefined) return svg5._prng() ** p
     return (b || b === 0) ? a + (svg5._prng() ** p) * (b - a) : (svg5._prng() ** p) * a
 }
+svg5.shuffle = arr => {
+    const copy = [...arr] // create a copy of original array
+    for (let i = copy.length - 1; i; i --) {
+        const randomIndex = svg5.randInt(0, i + 1, r);
+        [copy[i], copy[randomIndex]] = [copy[randomIndex], copy[i]] // swap
+    }
+    return copy
+}
+svg5.gaussianRand = (mean=0, stdev=1, r=random) => {
+    const u = 1 - svg5.random() // Converting [0,1) to (0,1]
+    const v = svg5.random()
+    const z = Math.sqrt(-2 * Math.log(u)) * Math.cos(TAU * v)
+    // Transform to the desired mean and standard deviation:
+    return z * stdev + mean
+}
 
 // Simplex Noise
 svg5.noiseSeed = seed => svg5._simplex = svg5._initSimplexNoise(seed)
@@ -327,9 +377,7 @@ svg5.noise1D = x => svg5._simplex.noise2D(x, 0)
 svg5.noise2D = (x, y) => svg5._simplex.noise2D(x, y)
 svg5.noise3D = (x, y, z) => svg5._simplex.noise3D(x, y, z)
 svg5.noise4D = (x, y, z, w) => svg5._simplex.noise4D(x, y, z, w)
-svg5.noise = function() {
-    return svg5._simplex[`noise${svg5.constrain(arguments.length, 1, 4)}D`](...arguments)
-}
+svg5.noise = (...args) => svg5._simplex[`noise${svg5.constrain(args.length, 1, 4)}D`](...args)
 
 
 // Groups
